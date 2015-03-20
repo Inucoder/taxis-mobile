@@ -1,0 +1,17 @@
+### OSX ###
+.DS_Store
+
+# Thumbnails
+._*
+
+### Swift ###
+build/
+*.pbxuser
+!default.pbxuser
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
