@@ -8,6 +8,10 @@
 
     <style name="_Taxi" parent="Theme.AppCompat.Light">
 
+        <!--Removing ol' actionbar, mate-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+
         <item name="android:editTextStyle">@style/EditTextTaxi</item>
 
         <item name="android:textColorHighlight">#9926c281</item>

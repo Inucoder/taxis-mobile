@@ -3,47 +3,54 @@
 <!-- Generated with http://android-holo-colors.com -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <style name="Taxi" parent="@style/_Taxi"/>
+    <style name="Taxi" parent="@style/_Taxi" />
 
-  <style name="_Taxi" parent="Theme.AppCompat.Light">
+    <style name="_Taxi" parent="Theme.AppCompat.Light">
 
-    <item name="android:editTextBackground">@drawable/taxi_edit_text_holo_light</item>
+        <!--Removing ol' actionbar, mate-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
 
-    <item name="android:textColorHighlight">#9926c281</item>
-    <item name="android:textSelectHandleLeft">@drawable/taxi_text_select_handle_left</item>
-    <item name="android:textSelectHandleRight">@drawable/taxi_text_select_handle_right</item>
-    <item name="android:textSelectHandle">@drawable/taxi_text_select_handle_middle</item>
+        <item name="android:editTextBackground">@drawable/taxi_edit_text_holo_light</item>
 
-    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewTaxi</item>
+        <item name="android:textColorHighlight">#9926c281</item>
+        <item name="android:textSelectHandleLeft">@drawable/taxi_text_select_handle_left</item>
+        <item name="android:textSelectHandleRight">@drawable/taxi_text_select_handle_right</item>
+        <item name="android:textSelectHandle">@drawable/taxi_text_select_handle_middle</item>
 
-    <item name="android:listChoiceIndicatorMultiple">@drawable/taxi_btn_check_holo_light</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewTaxi</item>
 
-    <item name="android:listChoiceIndicatorSingle">@drawable/taxi_btn_radio_holo_light</item>
+        <item name="android:listChoiceIndicatorMultiple">@drawable/taxi_btn_check_holo_light</item>
 
-    <item name="android:buttonStyle">@style/ButtonTaxi</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/taxi_btn_radio_holo_light</item>
 
-    <item name="android:imageButtonStyle">@style/ImageButtonTaxi</item>
+        <item name="android:buttonStyle">@style/ButtonTaxi</item>
 
-    <item name="android:dropDownSpinnerStyle">@style/SpinnerTaxi</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonTaxi</item>
 
-    <item name="android:progressBarStyleHorizontal">@style/ProgressBarTaxi</item>
+        <item name="android:dropDownSpinnerStyle">@style/SpinnerTaxi</item>
 
-    <item name="android:seekBarStyle">@style/SeekBarTaxi</item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarTaxi</item>
 
-    <item name="android:ratingBarStyle">@style/RatingBarTaxi</item>
+        <item name="android:seekBarStyle">@style/SeekBarTaxi</item>
 
-    <item name="android:ratingBarStyleIndicator">@style/RatingBarBigTaxi</item>
+        <item name="android:ratingBarStyle">@style/RatingBarTaxi</item>
 
-    <item name="android:ratingBarStyleSmall">@style/RatingBarSmallTaxi</item>
+        <item name="android:ratingBarStyleIndicator">@style/RatingBarBigTaxi</item>
 
-    <item name="android:buttonStyleToggle">@style/ToggleTaxi</item>
+        <item name="android:ratingBarStyleSmall">@style/RatingBarSmallTaxi</item>
 
-    <item name="android:listChoiceBackgroundIndicator">@drawable/taxi_list_selector_holo_light</item>
+        <item name="android:buttonStyleToggle">@style/ToggleTaxi</item>
 
-    <item name="android:activatedBackgroundIndicator">@drawable/taxi_activated_background_holo_light</item>
+        <item name="android:listChoiceBackgroundIndicator">@drawable/taxi_list_selector_holo_light
+        </item>
 
-    <item name="android:fastScrollThumbDrawable">@drawable/taxi_fastscroll_thumb_holo</item>
+        <item name="android:activatedBackgroundIndicator">
+            @drawable/taxi_activated_background_holo_light
+        </item>
 
-  </style>
+        <item name="android:fastScrollThumbDrawable">@drawable/taxi_fastscroll_thumb_holo</item>
+
+    </style>
 
 </resources>
