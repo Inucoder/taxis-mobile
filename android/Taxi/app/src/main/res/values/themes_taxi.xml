@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="Taxi" parent="@style/_Taxi"/>
+
+  <style name="_Taxi" parent="Theme.AppCompat.Light">
+
+    <item name="android:editTextStyle">@style/EditTextTaxi</item>
+
+    <item name="android:textColorHighlight">#9926c281</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewTaxi</item>
+
+    <item name="android:checkboxStyle">@style/CheckBoxTaxi</item>
+
+    <item name="android:radioButtonStyle">@style/RadioButtonTaxi</item>
+
+    <item name="android:buttonStyle">@style/ButtonTaxi</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonTaxi</item>
+
+    <item name="android:spinnerStyle">@style/SpinnerTaxi</item>
+
+    <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemTaxi</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarTaxi</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarTaxi</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarTaxi</item>
+
+    <item name="android:ratingBarStyleIndicator">@style/RatingBarBigTaxi</item>
+
+    <item name="android:ratingBarStyleSmall">@style/RatingBarSmallTaxi</item>
+
+    <item name="android:buttonStyleToggle">@style/ToggleTaxi</item>
+
+    <item name="android:listViewStyle">@style/ListViewTaxi</item>
+
+    <item name="android:listViewWhiteStyle">@style/ListViewTaxi.White</item>
+
+    <item name="android:spinnerItemStyle">@style/SpinnerItemTaxi</item>
+
+  </style>
+
+</resources>
