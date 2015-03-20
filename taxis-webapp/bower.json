@@ -1,0 +1,17 @@
+{
+  "name": "taxis-webapp",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "directory": "assets/bower_components",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.4"
+  },
+}
