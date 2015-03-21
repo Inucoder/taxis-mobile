@@ -1,22 +1,37 @@
-package com.mobile.taxi;
+package com.mobile.taxi.activities;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.mobile.taxi.R;
+import com.mobile.taxi.events.GetZonesEvent;
+import com.mobile.taxi.events.GetZonesResultEvent;
+import com.mobile.taxi.services.BusInstance;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
+
 public class SelectDestinyActivity extends ActionBarActivity {
+
+    private static final String TAG = SelectDestinyActivity.class.getName();
+
+    private Bus bus = BusInstance.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_destiny);
 
+        bus.register(this);
+
         // Replace action bar with toolbar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null)
             setSupportActionBar(toolbar);
+
+        bus.post(new GetZonesEvent());
 
     }
 
@@ -41,4 +56,16 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bus.unregister(this);
+    }
+
+    @Subscribe
+    public void onZonesReceived(GetZonesResultEvent event){
+
+    }
+
 }
