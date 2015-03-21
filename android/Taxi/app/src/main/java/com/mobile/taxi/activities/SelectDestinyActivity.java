@@ -1,5 +1,6 @@
 package com.mobile.taxi.activities;
 
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -31,6 +32,7 @@ import com.mobile.taxi.models.Prediction;
 import com.mobile.taxi.models.Result;
 import com.mobile.taxi.models.TaxiZone;
 import com.mobile.taxi.services.BusInstance;
+import com.mobile.taxi.utils.PredictionsCursorFactory;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
@@ -149,6 +151,16 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
     }
 
+
+    @Subscribe
+    public void onSuggestionsReceived(GetSuggestionsResultEvent event){
+
+        List<Prediction> predictions = event.response.getPredictions();
+        Cursor cursor = PredictionsCursorFactory.generate(predictions, FROM_PLACES);
+        suggestionAdapter.changeCursor(cursor);
+
+    }
+
     class DragListener implements GoogleMap.OnMapClickListener, GoogleMap.OnMarkerDragListener {
 
         private Marker marker;
@@ -211,17 +223,6 @@ public class SelectDestinyActivity extends ActionBarActivity {
         private void geocodePosition() {
             LatLng point = marker.getPosition();
             bus.post(new GeocodeLatLngEvent(point));
-        }
-
-    }
-
-    @Subscribe
-    public void onSuggestionsReceived(GetSuggestionsResultEvent event){
-
-        List<Prediction> predictions = event.response.getPredictions();
-
-        for(Prediction prediction : predictions){
-            Log.i(TAG, prediction.getDescription());
         }
 
     }
