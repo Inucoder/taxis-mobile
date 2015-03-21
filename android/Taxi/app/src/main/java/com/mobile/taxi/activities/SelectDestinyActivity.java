@@ -13,6 +13,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -27,7 +28,10 @@ import com.mobile.taxi.events.GetSuggestionsEvent;
 import com.mobile.taxi.events.GetSuggestionsResultEvent;
 import com.mobile.taxi.events.GetZonesEvent;
 import com.mobile.taxi.events.GetZonesResultEvent;
+import com.mobile.taxi.events.PlaceDetailEvent;
+import com.mobile.taxi.events.PlaceDetailResultEvent;
 import com.mobile.taxi.models.GeocodingResponse;
+import com.mobile.taxi.models.Location;
 import com.mobile.taxi.models.Prediction;
 import com.mobile.taxi.models.Result;
 import com.mobile.taxi.models.TaxiZone;
@@ -153,11 +157,25 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
 
     @Subscribe
-    public void onSuggestionsReceived(GetSuggestionsResultEvent event){
+    public void onSuggestionsReceived(GetSuggestionsResultEvent event) {
 
         List<Prediction> predictions = event.response.getPredictions();
         Cursor cursor = PredictionsCursorFactory.generate(predictions, FROM_PLACES);
         suggestionAdapter.changeCursor(cursor);
+
+    }
+
+    @Subscribe
+    public void onPredictionDetail(PlaceDetailResultEvent event) {
+
+        Result result = event.placeResponse.getResult();
+
+        Location resultLocation = result.getGeometry().getLocation();
+
+        LatLng point = new LatLng(resultLocation.getLat(), resultLocation.getLng());
+
+        map.moveCamera(CameraUpdateFactory.newLatLng(point));
+        map.animateCamera(CameraUpdateFactory.zoomTo(17), 2000, null);
 
     }
 
@@ -227,11 +245,11 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
     }
 
-    class LocalitySearchListener implements SearchView.OnQueryTextListener, SearchView.OnSuggestionListener{
+    class LocalitySearchListener implements SearchView.OnQueryTextListener, SearchView.OnSuggestionListener {
 
         @Override
         public boolean onQueryTextSubmit(String query) {
-            if(query.length() > 3){
+            if (query.length() > 3) {
                 bus.post(new GetSuggestionsEvent(query));
                 return true;
             }
@@ -240,7 +258,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
         @Override
         public boolean onQueryTextChange(String query) {
-            if(query.length() > 3){
+            if (query.length() > 3) {
                 bus.post(new GetSuggestionsEvent(query));
                 return true;
             }
@@ -248,14 +266,27 @@ public class SelectDestinyActivity extends ActionBarActivity {
         }
 
         @Override
-        public boolean onSuggestionSelect(int i) {
-            return false;
+        public boolean onSuggestionSelect(int position) {
+            return getDetails(position);
         }
 
         @Override
-        public boolean onSuggestionClick(int i) {
-            return false;
+        public boolean onSuggestionClick(int position) {
+            return getDetails(position);
         }
+
+        private boolean getDetails(int position) {
+            Cursor cursor = (Cursor) suggestionAdapter.getItem(position);
+            String placeId = cursor.getString(1);
+
+            if (!placeId.isEmpty()) {
+                bus.post(new PlaceDetailEvent(cursor.getString(1)));
+                return true;
+            } else {
+                return false;
+            }
+        }
+
 
     }
 

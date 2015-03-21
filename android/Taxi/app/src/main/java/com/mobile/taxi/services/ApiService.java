@@ -11,8 +11,11 @@ import com.mobile.taxi.events.GetSuggestionsEvent;
 import com.mobile.taxi.events.GetSuggestionsResultEvent;
 import com.mobile.taxi.events.GetZonesEvent;
 import com.mobile.taxi.events.GetZonesResultEvent;
+import com.mobile.taxi.events.PlaceDetailEvent;
+import com.mobile.taxi.events.PlaceDetailResultEvent;
 import com.mobile.taxi.models.AutocompleteResponse;
 import com.mobile.taxi.models.GeocodingResponse;
+import com.mobile.taxi.models.PlaceResponse;
 import com.mobile.taxi.models.TaxiZone;
 import com.mobile.taxi.utils.TaxiJsonReader;
 import com.squareup.otto.Bus;
@@ -32,12 +35,13 @@ public class ApiService {
 
     private static final String TAG = ApiService.class.getName();
 
-    private static final String DEFAULT_COUNTRY_COMPONENT = "country:MX";
+    private static final String DEFAULT_COUNTRY_COMPONENT = "country:mx";
     private static final String DEFAULT_COMPONENTS = DEFAULT_COUNTRY_COMPONENT + "|locality:" + Uri.encode("Cancún");
     private static final String DEFAULT_TYPES = "(cities)";
     private static final String DEFAULT_LANGUAGE = "es";
     private static final String GOOGLE_API_KEY = "AIzaSyBHJAB-jGgbOZn024MYdfvMUtO2AQ9SIdA";
-    public static final String CANCUN_CENTER_POINT = "21.157696,-86.858188";
+    public static final String CANCUN_CENTER_POINT = "21.161681372089326,-86.85911178588867";
+    public static final String DEFAULT_RADIUS = "11000";
 
     private Bus bus;
     private Context context;
@@ -87,11 +91,11 @@ public class ApiService {
     }
 
     @Subscribe
-    public void onGetSuggestion(GetSuggestionsEvent event){
+    public void onGetSuggestion(GetSuggestionsEvent event) {
 
         String query = event.query;
 
-        googleApi.getPredictions(GOOGLE_API_KEY, DEFAULT_COUNTRY_COMPONENT, query, DEFAULT_LANGUAGE, CANCUN_CENTER_POINT, new Callback<AutocompleteResponse>() {
+        googleApi.getPredictions(GOOGLE_API_KEY, DEFAULT_COUNTRY_COMPONENT, query, DEFAULT_LANGUAGE, CANCUN_CENTER_POINT, DEFAULT_RADIUS, new Callback<AutocompleteResponse>() {
             @Override
             public void success(AutocompleteResponse autocompleteResponse, Response response) {
                 bus.post(new GetSuggestionsResultEvent(autocompleteResponse));
@@ -103,6 +107,29 @@ public class ApiService {
                 Log.e(TAG, error.getMessage());
             }
         });
+
+    }
+
+    @Subscribe
+    public void onPredictionDetail(PlaceDetailEvent event) {
+
+        Log.i(TAG, "Detalles place_id: " + event.placeId);
+
+        String placeId = event.placeId;
+
+        googleApi.getPredictionDetail(GOOGLE_API_KEY, placeId, DEFAULT_LANGUAGE, new Callback<PlaceResponse>() {
+            @Override
+            public void success(PlaceResponse placeResponse, Response response) {
+                bus.post(new PlaceDetailResultEvent(placeResponse));
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                error.getResponse().getReason();
+                Log.e(TAG, error.getMessage());
+            }
+        });
+
 
     }
 
