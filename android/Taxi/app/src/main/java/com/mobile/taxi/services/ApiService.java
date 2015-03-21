@@ -23,9 +23,12 @@ public class ApiService {
     private Bus bus;
     private Context contex;
 
-    public ApiService(Bus bus, Context contex) {
+    private GoogleApi googleApi;
+
+    public ApiService(Bus bus, GoogleApi googleApi, Context contex) {
         this.bus = bus;
         this.contex = contex;
+        this.googleApi = googleApi;
     }
 
     @Subscribe
@@ -48,6 +51,13 @@ public class ApiService {
 
         List<TaxiZone> taxiZoneList = Arrays.asList(zones);
         bus.post(new GetZonesResultEvent(taxiZoneList));
+    }
+
+    @Subscribe
+    public void onPointDetails(){
+
+
+
     }
 
 }
