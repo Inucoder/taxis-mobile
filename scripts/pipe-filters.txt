@@ -1,0 +1,8 @@
+@author Oswaldo Ceballos Zavala
+@author Irving Caro Fierros
+@author Angel Medina Moreno
+@author Juan Ku Quintana
+
+cat polygons-cartesian.txt | python generator-zones.py > polygons-geo.json
+coffee generator-polygons.coffee > zones.json
+coffee generator-polygons-geojsonlint.coffee > zones-geojson.json
