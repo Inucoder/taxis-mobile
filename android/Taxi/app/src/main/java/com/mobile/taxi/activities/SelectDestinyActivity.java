@@ -96,6 +96,8 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
     private void configureMap() {
 
+        map.setMyLocationEnabled(true);
+
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
