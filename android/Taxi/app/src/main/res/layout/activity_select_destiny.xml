@@ -7,7 +7,7 @@
 
     <include layout="@layout/toolbar" />
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
@@ -20,6 +20,12 @@
 
         </fragment>
 
-    </RelativeLayout>
+        <SearchView
+            android:id="@+id/sv_destiny_location"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="60dip"/>
+
+    </FrameLayout>
 
 </LinearLayout>

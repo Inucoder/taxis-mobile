@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -51,6 +52,9 @@ public class SelectDestinyActivity extends ActionBarActivity {
         assert (map != null);
 
         configureMap();
+
+        SearchView destinyLocationSearch = (SearchView)findViewById(R.id.sv_destiny_location);
+        
 
         bus.post(new GetZonesEvent());
 
