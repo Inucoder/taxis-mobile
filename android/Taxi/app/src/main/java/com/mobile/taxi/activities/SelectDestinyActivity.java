@@ -147,6 +147,11 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
         map.setOnMyLocationChangeListener(mapListener);
 
+        LatLng point = new LatLng(21.161681372089326, -86.85911178588867);
+
+        map.moveCamera(CameraUpdateFactory.newLatLng(point));
+        map.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
+
     }
 
     @Subscribe
@@ -190,7 +195,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
         LatLng point = new LatLng(resultLocation.getLat(), resultLocation.getLng());
 
         map.moveCamera(CameraUpdateFactory.newLatLng(point));
-        map.animateCamera(CameraUpdateFactory.zoomTo(17), 2000, null);
+        map.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
 
     }
 
@@ -208,7 +213,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
                 marker.setDraggable(true);
             }
 
-            checkZones();
+            checkZones(marker);
             geocodePosition();
 
         }
@@ -225,34 +230,8 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
         @Override
         public void onMarkerDragEnd(Marker marker) {
-            checkZones();
+            checkZones(marker);
             geocodePosition();
-        }
-
-        private void checkZones() {
-
-            for (TaxiZone zone : zones) {
-                if (PolyUtil.containsLocation(marker.getPosition(), zone.getPoints(), true)) {
-
-                    if (destinationZone != null) {
-                        destinationZone.getArea().setFillColor(Color.BLUE);
-                    }
-
-                    destinationZone = zone;
-                    zone.getArea().setFillColor(Color.GREEN);
-
-                    Toast.makeText(SelectDestinyActivity.this, "Zona " + zone.getName() + " tocada", Toast.LENGTH_LONG).show();
-                    return;
-                }
-            }
-
-            if (destinationZone != null) {
-                destinationZone.getArea().setFillColor(Color.BLUE);
-                destinationZone = null;
-            }
-
-            displayCosts();
-
         }
 
         private void geocodePosition() {
@@ -266,7 +245,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
             LatLng sourcePoint = new LatLng(location.getLatitude(), location.getLongitude());
 
             if (sourceZone != null) {
-                sourceZone.getArea().setFillColor(Color.BLUE);
+                sourceZone.fillAsNonSelected();
             }
 
             for (TaxiZone zone : zones) {
@@ -275,9 +254,9 @@ public class SelectDestinyActivity extends ActionBarActivity {
                     sourceZone = zone;
 
                     if (sourceZone != destinationZone) {
-                        sourceZone.getArea().setFillColor(Color.YELLOW);
+                        sourceZone.fillAsSource();
                     } else {
-                        sourceZone.getArea().setFillColor(Color.GREEN);
+                        sourceZone.fillAsDestination();
                     }
 
                     break;
@@ -286,6 +265,10 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
             displayCosts();
 
+        }
+
+        public Marker getMarker() {
+            return marker;
         }
 
     }
@@ -332,6 +315,28 @@ public class SelectDestinyActivity extends ActionBarActivity {
             }
         }
 
+
+    }
+
+    private void checkZones(Marker marker) {
+
+        if (destinationZone != null) {
+            destinationZone.fillAsNonSelected();
+            destinationZone = null;
+        }
+
+        for (TaxiZone zone : zones) {
+            if (PolyUtil.containsLocation(marker.getPosition(), zone.getPoints(), true)) {
+
+                destinationZone = zone;
+                zone.fillAsDestination();
+
+                Toast.makeText(SelectDestinyActivity.this, "Zona " + zone.getName() + " tocada", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+
+        displayCosts();
 
     }
 

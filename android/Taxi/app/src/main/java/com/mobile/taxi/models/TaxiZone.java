@@ -16,6 +16,11 @@ import java.util.List;
  */
 public class TaxiZone {
 
+    public static final int AREA_STROKE_COLOR = Color.argb(102, 0, 0, 0);
+    public static final int AREA_DEFAULT_FILL_COLOR = Color.argb(25, 38, 194, 129);
+    public static final int AREA_SELECTED_SOURC_FILL_COLOR = Color.argb(153, 218, 211, 22);
+    public static final int AREA_SELECTED_DEST_FILL_COLOR = Color.argb(153, 38, 194, 129);
+
     @Expose
     private Integer id;
     @Expose
@@ -70,7 +75,7 @@ public class TaxiZone {
         this.polygon = polygon;
     }
 
-    public void inflateArea(GoogleMap map){
+    public void inflateArea(GoogleMap map) {
 
         PolygonOptions options = new PolygonOptions();
         LatLng point;
@@ -81,12 +86,25 @@ public class TaxiZone {
             options.add(point);
         }
 
-        options.strokeColor(Color.RED)
-                .fillColor(Color.BLUE);
+        options.strokeColor(AREA_STROKE_COLOR)
+                .fillColor(AREA_DEFAULT_FILL_COLOR);
 
         this.area = map.addPolygon(options);
 
     }
+
+    public void fillAsSource() {
+        area.setFillColor(AREA_SELECTED_SOURC_FILL_COLOR);
+    }
+
+    public void fillAsNonSelected() {
+        area.setFillColor(AREA_DEFAULT_FILL_COLOR);
+    }
+
+    public void fillAsDestination() {
+        area.setFillColor(AREA_SELECTED_DEST_FILL_COLOR);
+    }
+
 
     public com.google.android.gms.maps.model.Polygon getArea() {
         return area;
