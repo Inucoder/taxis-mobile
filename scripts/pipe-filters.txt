@@ -6,3 +6,9 @@
 cat polygons-cartesian.txt | python generator-zones.py > polygons-geo.json
 coffee generator-polygons.coffee > zones.json
 coffee generator-polygons-geojsonlint.coffee > zones-geojson.json
+
+
+coffee generator-polygons.coffee > zones.json & coffee generator-polygons-geojsonlint.coffee > zones-geojson.json
+
+
+cat costs-raw.txt | python generator-costs.py > costs.json
