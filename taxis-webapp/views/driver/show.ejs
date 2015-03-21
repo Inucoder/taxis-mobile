@@ -1,0 +1,69 @@
+<script type='text/javascript'>
+  window.driver = <%- JSON.stringify(driver) %>;
+  window.driver = driver[0];
+</script>
+<div ng-controller="showDriverCTL">
+  <div class="subheader shift-with-hiw">
+    <div class="header--sm show-sm pull-left">
+      <a href="#" data-prevent-default="" class="link-reset burger--sm">
+        <i class="icon icon-reorder icon-rausch"></i>
+      </a>
+      <div class="title--sm text-center">
+        <img src="/images/logo.png" alt="logo" class="logo" />
+        <a href="/" class="header-belo">taxitaxi</a>
+      </div>
+      <div class="action--sm"></div>
+      <nav class="nav--sm"></nav>
+      <div class="search-modal-container"></div>
+    </div>
+
+    <div class="regular-header clearfix hide-sm pull-right">
+      <a href="/" class="header-belo pull-left"></a>
+      <ul class="nav pull-right logged-out list-unstyled medium-right-margin">
+        <li class="pull-left">
+          <a href="/conductores" class="link-reset" rel="nofollow">
+            Conductores
+          </a>
+        </li>
+        <li class="pull-left">
+          <a href="/tarifas" class="link-reset" rel="nofollow">
+            Tarifas
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-10 col-md-offset-1 col-center" style="padding-bottom:40px;">
+    <div class="p1-hero-search-form hide-sm">
+      <div class="col-md-6 col-md-offset-3">
+        <form id="search_form" method="get">
+          <div class="search-form-input-wrapper">
+            <div class="location-wrapper">
+              <span class="input-placeholder-group">
+                <input type="text" class="form-inline location input-large input-contrast" placeholder="Buscar por placa, nombre, ciudad ó código postal" />
+              </span>
+            </div>
+            <span class="input-placeholder-group">
+          </div>
+          <button type="submit" class="search-button form-inline btn btn-primary btn-large" id="submit_location">Buscar</button>
+        </form>
+      </div>
+    </div><br/>
+    <h5>Conductor <b>{{ driver.name }} {{ driver.lastname }} {{ driver.surname }}</b></h5>
+    <div class="col-md-12">
+      <div class="col-md-6">
+        <img src="http://blog.edmond.cl/wp-content/uploads/2012/09/taxista.jpg" ng-if="driver.id < 100" class="driver" />
+        <img src="http://www.andes.info.ec/sites/default/files/styles/large/public/field/image/taxistas%20seleccion.jpg?itok=qn7ukUn0" ng-if="driver.id > 100 && driver.id < 600"  class="driver" />
+        <img src="http://www.eluniversal.com.co/sites/default/files/taxista_3.jpg" ng-if="driver.id > 600"  class="driver" />
+      </div>
+      <div class="col-md-6">
+        <p>Placas: {{ driver.plates }}</p>
+        <p>Model: {{ driver.model }}</p>
+        <p>Marca: {{ driver.brand }}</p>
+        <p>Año: {{ driver.year }}</p>
+        <p ng-if="driver.id < 300" class="certified">CERTIFICADO</p>
+        <p ng-if="driver.id > 300" class="pirate">PIRATA</p>
+      </div>
+    </div>
+  </div>
+</div>

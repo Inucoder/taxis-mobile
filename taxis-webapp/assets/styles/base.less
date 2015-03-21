@@ -66,13 +66,6 @@ body {
   font-size: 18px;
 }
 .p1-hero-search-form {
-  background: #000;
-  background: rgba(0,0,0,0.6);
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
   padding-top: 30px;
   padding-bottom: 30px;
 }
@@ -83,6 +76,65 @@ body {
 .location-wrapper {
   position: relative;
   display: inline-block;
+}
+.search-form-input-wrapper {
+  display: inline-block;
+  position: relative;
+}
+.location-wrapper {
+  position: relative;
+  display: inline-block;
+}
+#search_form input, #guests, #submit_location {
+  height: 44px;
+}
+.location {
+  width: 390px;
+}
+#submit_location {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.select-large {
+  font-size: 16px;
+}
+.select {
+  position: relative;
+  display: inline-block;
+  vertical-align: bottom;
+}
+#search_form input, #guests, #submit_location {
+  height: 44px;
+}
+.checkin, .checkout, #guests {
+  border-radius: 0;
+}
+.select-large select {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+#search_form input, #guests, #submit_location {
+  height: 44px;
+}
+.btn-primary.btn:hover, .btn-primary.btn:focus {
+  border-color: #ff7e82;
+  border-bottom-color: #fa0008;
+  background-color: #ff7e82;
+  color: #fff;
+}
+.btn-primary.btn {
+  border-color: #ff5a5f;
+  border-bottom-color: #e00007;
+  background-color: #ff5a5f;
+  color: #fff;
+}
+[type="text"], [type="password"], [type="search"], [type="email"], [type="url"], [type="tel"], textarea, select, input[type="radio"], input[type="checkbox"], .input-prefix, .input-suffix {
+  border: 1px solid #c4c4c4;
+  border-radius: 2px;
+  background-color: #fff;
+  color: #565a5c;
+  font-size: 14px;
+  line-height: 1.43;
 }
 .page-container-responsive {
   width: 1045px;
@@ -196,6 +248,22 @@ body {
 }
 .iphone {
   position: absolute;
-  bottom: 0px;
-  left: 150px;
+  bottom: 10px;
+  left: 100px;
+  width: 250px;
+}
+.android {
+  position: absolute;
+  bottom: 10px;
+  left: 100px;
+  width: 250px;
+}
+.driver {
+  font-size: 12px;
+}
+img.driver {
+  max-width: 400px;
+}
+.certified, .pirate {
+  font-size: 30px;
 }

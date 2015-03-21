@@ -7,6 +7,13 @@
 
 module.exports = {
   index: function (req, res) {
+    //if(req.isJson) {
+    //  res.json(user); 
+    //}
+    //else {
+    //  res.redirect('/user');  
+    //}
+
     Driver.count().exec(function(e,num){
       res.view({
         drivers: num

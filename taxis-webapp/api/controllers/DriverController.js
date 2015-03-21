@@ -7,7 +7,17 @@
 
 module.exports = {
   index: function (req, res) {
-    res.view({
+    Driver.find({ limit: 100, sort: 'name DESC' }).exec(function(e,drivers){
+      res.view({
+        drivers: drivers
+      });
+    });
+  },
+  show: function (req, res) {
+    Driver.find({ id: req.params.id }).exec(function(e,driver){
+      res.view({
+        driver: driver
+      });
     });
   }
 };
