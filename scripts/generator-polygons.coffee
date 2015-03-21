@@ -8,6 +8,7 @@
 _ = require 'underscore'
 data = require './polygons-geo.json'
 translate = require './translate'
+scale = require './scale'
 
 #console.log data
 
@@ -29,6 +30,7 @@ _.each data, (areaData, idx)->
 	areas.push area
 
 #transform
-translate areas, -0.001, 0.03
+translate areas, -0.0015, 0.03
+scale areas, 1.0001, 1.0
 
 console.log JSON.stringify areas, null, 4
