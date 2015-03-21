@@ -13,7 +13,7 @@
 		A737F95B1ABCB1A6003CFAB5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A737F95A1ABCB1A6003CFAB5 /* Images.xcassets */; };
 		A737F95E1ABCB1A6003CFAB5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A737F95C1ABCB1A6003CFAB5 /* LaunchScreen.xib */; };
 		A737F96A1ABCB1A6003CFAB5 /* TaxiTaxiiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737F9691ABCB1A6003CFAB5 /* TaxiTaxiiOSTests.swift */; };
-		A737F9751ABCBD5D003CFAB5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737F9741ABCBD5D003CFAB5 /* ViewController.swift */; };
+		A737F9751ABCBD5D003CFAB5 /* DashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737F9741ABCBD5D003CFAB5 /* DashViewController.swift */; };
 		A737F9781ABCBEAA003CFAB5 /* ExtensionUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737F9771ABCBEAA003CFAB5 /* ExtensionUIColor.swift */; };
 		A737F97B1ABCCB55003CFAB5 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A737F97A1ABCCB55003CFAB5 /* GoogleMaps.framework */; };
 		A737F97D1ABCCB64003CFAB5 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A737F97C1ABCCB64003CFAB5 /* GoogleMaps.bundle */; };
@@ -29,6 +29,8 @@
 		A737F9911ABCCC26003CFAB5 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A737F9901ABCCC26003CFAB5 /* OpenGLES.framework */; };
 		A737F9931ABCCC3D003CFAB5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A737F9921ABCCC3D003CFAB5 /* QuartzCore.framework */; };
 		A737F9951ABCCC46003CFAB5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A737F9941ABCCC46003CFAB5 /* SystemConfiguration.framework */; };
+		A737F99E1ABCE0CF003CFAB5 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737F99D1ABCE0CF003CFAB5 /* Config.swift */; };
+		A737F9A31ABD031E003CFAB5 /* PointMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737F9A21ABD031E003CFAB5 /* PointMarker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +54,7 @@
 		A737F9631ABCB1A6003CFAB5 /* TaxiTaxiiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaxiTaxiiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A737F9681ABCB1A6003CFAB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A737F9691ABCB1A6003CFAB5 /* TaxiTaxiiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxiTaxiiOSTests.swift; sourceTree = "<group>"; };
-		A737F9741ABCBD5D003CFAB5 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A737F9741ABCBD5D003CFAB5 /* DashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashViewController.swift; sourceTree = "<group>"; };
 		A737F9771ABCBEAA003CFAB5 /* ExtensionUIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionUIColor.swift; path = Extensions/ExtensionUIColor.swift; sourceTree = "<group>"; };
 		A737F97A1ABCCB55003CFAB5 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		A737F97C1ABCCB64003CFAB5 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
@@ -68,6 +70,9 @@
 		A737F9901ABCCC26003CFAB5 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		A737F9921ABCCC3D003CFAB5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A737F9941ABCCC46003CFAB5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		A737F9971ABCE08B003CFAB5 /* TaxiTaxiiOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TaxiTaxiiOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		A737F99D1ABCE0CF003CFAB5 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		A737F9A21ABD031E003CFAB5 /* PointMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointMarker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,14 +128,16 @@
 		A737F94D1ABCB1A6003CFAB5 /* TaxiTaxiiOS */ = {
 			isa = PBXGroup;
 			children = (
-				A737F9761ABCBE58003CFAB5 /* Extensions */,
-				A737F9731ABCBD5D003CFAB5 /* Controllers */,
 				A737F9501ABCB1A6003CFAB5 /* AppDelegate.swift */,
 				A737F9571ABCB1A6003CFAB5 /* Main.storyboard */,
 				A737F95A1ABCB1A6003CFAB5 /* Images.xcassets */,
 				A737F95C1ABCB1A6003CFAB5 /* LaunchScreen.xib */,
 				A737F9521ABCB1A6003CFAB5 /* TaxiTaxiiOS.xcdatamodeld */,
+				A737F9A11ABD031E003CFAB5 /* Models */,
+				A737F9761ABCBE58003CFAB5 /* Extensions */,
+				A737F9731ABCBD5D003CFAB5 /* Controllers */,
 				A737F94E1ABCB1A6003CFAB5 /* Supporting Files */,
+				A737F99C1ABCE0CF003CFAB5 /* Config */,
 			);
 			path = TaxiTaxiiOS;
 			sourceTree = "<group>";
@@ -138,6 +145,7 @@
 		A737F94E1ABCB1A6003CFAB5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A737F9971ABCE08B003CFAB5 /* TaxiTaxiiOS-Bridging-Header.h */,
 				A737F94F1ABCB1A6003CFAB5 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -163,7 +171,7 @@
 		A737F9731ABCBD5D003CFAB5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A737F9741ABCBD5D003CFAB5 /* ViewController.swift */,
+				A737F9741ABCBD5D003CFAB5 /* DashViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -196,6 +204,22 @@
 			);
 			name = Frameworks;
 			path = TaxiTaxiiOS/Frameworks;
+			sourceTree = "<group>";
+		};
+		A737F99C1ABCE0CF003CFAB5 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				A737F99D1ABCE0CF003CFAB5 /* Config.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		A737F9A11ABD031E003CFAB5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A737F9A21ABD031E003CFAB5 /* PointMarker.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,10 +323,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A737F9751ABCBD5D003CFAB5 /* ViewController.swift in Sources */,
+				A737F9751ABCBD5D003CFAB5 /* DashViewController.swift in Sources */,
 				A737F9511ABCB1A6003CFAB5 /* AppDelegate.swift in Sources */,
 				A737F9541ABCB1A6003CFAB5 /* TaxiTaxiiOS.xcdatamodeld in Sources */,
 				A737F9781ABCBEAA003CFAB5 /* ExtensionUIColor.swift in Sources */,
+				A737F99E1ABCE0CF003CFAB5 /* Config.swift in Sources */,
+				A737F9A31ABD031E003CFAB5 /* PointMarker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +455,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TaxiTaxiiOS/Frameworks",
@@ -436,6 +463,8 @@
 				INFOPLIST_FILE = TaxiTaxiiOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TaxiTaxiiOS/TaxiTaxiiOS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -443,6 +472,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TaxiTaxiiOS/Frameworks",
@@ -450,6 +480,7 @@
 				INFOPLIST_FILE = TaxiTaxiiOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TaxiTaxiiOS/TaxiTaxiiOS-Bridging-Header.h";
 			};
 			name = Release;
 		};
