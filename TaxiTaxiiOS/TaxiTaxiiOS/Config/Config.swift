@@ -12,4 +12,8 @@ class CONFIG {
     struct GOOGLE_MAPS {
         static var API_KEY:String = "AIzaSyCOf6BRHOsT-M5zUeZoz3Yfr_18YSRAb3c"
     }
+    struct FILE {
+        static var NAME:String = "zones"
+        static var TYPE:String = "json"
+    }
 }
