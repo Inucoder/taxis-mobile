@@ -25,7 +25,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Seleccione a donde se dirige" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ti-th-Uft">
-                                <rect key="frame" x="0.0" y="109" width="320" height="21"/>
+                                <rect key="frame" x="0.0" y="108" width="320" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -43,7 +43,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q30-ts-R0V" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="143" width="320" height="370"/>
+                                <rect key="frame" x="0.0" y="133" width="320" height="380"/>
                                 <color key="backgroundColor" red="0.074537985026836395" green="0.76587569713592529" blue="0.49824762344360352" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
@@ -63,7 +63,7 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="alv-Ew-wrH" secondAttribute="bottom" id="q4p-Y6-2cc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="q30-ts-R0V" secondAttribute="trailing" constant="-16" id="r70-CN-rt7"/>
                             <constraint firstItem="alv-Ew-wrH" firstAttribute="top" secondItem="q30-ts-R0V" secondAttribute="bottom" id="wxB-gp-tLe"/>
-                            <constraint firstItem="6Ti-th-Uft" firstAttribute="top" secondItem="joU-fk-j2Z" secondAttribute="bottom" constant="20" id="zv6-1B-BQV"/>
+                            <constraint firstItem="6Ti-th-Uft" firstAttribute="top" secondItem="joU-fk-j2Z" secondAttribute="bottom" constant="10" id="zv6-1B-BQV"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
