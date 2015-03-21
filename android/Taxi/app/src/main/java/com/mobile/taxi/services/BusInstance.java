@@ -14,6 +14,7 @@ public class BusInstance {
     }
 
     private BusInstance() {
+
     }
 
 }
