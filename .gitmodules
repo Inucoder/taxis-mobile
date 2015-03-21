@@ -1,0 +1,6 @@
+[submodule "TaxiTaxiiOS/TaxiTaxiiOS/Frameworks/ObjectMapper"]
+	path = TaxiTaxiiOS/TaxiTaxiiOS/Frameworks/ObjectMapper
+	url = https://github.com/Hearst-DD/ObjectMapper.git
+[submodule "TaxiTaxiiOS/TaxiTaxiiOS/Frameworks/SwiftyJSON"]
+	path = TaxiTaxiiOS/TaxiTaxiiOS/Frameworks/SwiftyJSON
+	url = https://github.com/SwiftyJSON/SwiftyJSON.git
