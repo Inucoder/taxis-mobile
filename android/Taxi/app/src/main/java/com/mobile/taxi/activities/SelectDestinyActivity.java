@@ -81,7 +81,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            toolbar.setLogo(R.drawable.ic_launcher);
+            toolbar.setLogo(R.mipmap.ic_launcher);
         }
 
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.taxi_map)).getMap();

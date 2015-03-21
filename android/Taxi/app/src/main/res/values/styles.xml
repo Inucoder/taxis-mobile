@@ -1,4 +1,7 @@
 <resources>
 
+    <style name="CalculateButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/btn_calculate</item>
+    </style>
 
 </resources>

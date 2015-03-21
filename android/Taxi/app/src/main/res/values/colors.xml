@@ -2,4 +2,5 @@
 <resources>
     <color name="taxi_color">#26c281</color>
     <color name="orange_button">#FBAB1C</color>
+    <color name="orange_disable_button">#FDD58D</color>
 </resources>
