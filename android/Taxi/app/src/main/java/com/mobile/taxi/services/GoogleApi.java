@@ -19,7 +19,7 @@ public interface GoogleApi {
 
     @GET("/place/autocomplete/json")
     public void getPredictions(@Query("key") String key, @Query("components") String components,
-                               @Query("input") String input, @Query("types") String types, @Query("language") String language,
+                               @Query("input") String input, @Query("language") String language, @Query("location") String location,
                                Callback<AutocompleteResponse> callback);
 
 }

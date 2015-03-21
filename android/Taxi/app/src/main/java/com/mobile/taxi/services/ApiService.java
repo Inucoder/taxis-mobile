@@ -37,6 +37,7 @@ public class ApiService {
     private static final String DEFAULT_TYPES = "(cities)";
     private static final String DEFAULT_LANGUAGE = "es";
     private static final String GOOGLE_API_KEY = "AIzaSyBHJAB-jGgbOZn024MYdfvMUtO2AQ9SIdA";
+    public static final String CANCUN_CENTER_POINT = "21.157696,-86.858188";
 
     private Bus bus;
     private Context context;
@@ -90,7 +91,7 @@ public class ApiService {
 
         String query = event.query;
 
-        googleApi.getPredictions(GOOGLE_API_KEY, DEFAULT_COUNTRY_COMPONENT, query, DEFAULT_TYPES, DEFAULT_LANGUAGE, new Callback<AutocompleteResponse>() {
+        googleApi.getPredictions(GOOGLE_API_KEY, DEFAULT_COUNTRY_COMPONENT, query, DEFAULT_LANGUAGE, CANCUN_CENTER_POINT, new Callback<AutocompleteResponse>() {
             @Override
             public void success(AutocompleteResponse autocompleteResponse, Response response) {
                 bus.post(new GetSuggestionsResultEvent(autocompleteResponse));
