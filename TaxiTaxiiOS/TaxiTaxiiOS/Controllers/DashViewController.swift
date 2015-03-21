@@ -15,6 +15,7 @@ class DashViewController: UIViewController {
     @IBOutlet weak var mapDashView: GMSMapView!
     
     var zonesGMS: [Zone]! = []
+    var costs: JSON!
     
     var selectedZone: Zone?
     
@@ -35,7 +36,7 @@ class DashViewController: UIViewController {
         for zone in ZoneService.instance.getZones(){
             zonesGMS.append(self.mapDashView.displayZone(zone));
         }
-        
+        costs = ZoneService.instance.getCosts();
     }
     
     override func didReceiveMemoryWarning() {
@@ -45,7 +46,7 @@ class DashViewController: UIViewController {
     @IBAction func costTaxi(sender: AnyObject) {
         let alert = SCLAlertView()
         if selectedZone != nil && currentZone != nil {
-            alert.showSuccess("Tarifa", subTitle: "De la \(selectedZone!.name!) a la \(currentZone!.name!)")
+            alert.showSuccess("Tarifa", subTitle: "De la \(selectedZone!.name!) a la \(currentZone!.name!) la tarifa es de: \(costs[currentZone!.id!,selectedZone!.id!])")
         }else{
             alert.showError("Selecciona tu destino", subTitle:"Aún no has seleccionado tu punto de destino.", closeButtonTitle:"Aceptar")
         }
@@ -65,11 +66,21 @@ extension DashViewController: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         if let location = locations.first as? CLLocation {
-            mapDashView.camera = GMSCameraPosition(target: location.coordinate, zoom: 12, bearing: 0, viewingAngle: 0)
+            let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            myCurrentLocationName(center)
             locationManager.stopUpdatingLocation()
         }
     }
-    
+
+//    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+//        let location = locations.last as CLLocation
+//        
+//        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+//  //      let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+//        
+////        self.map.setRegion(region, animated: true)
+//        myCurrentLocationName(center)
+//    }
 }
 
 extension DashViewController: GMSMapViewDelegate{
@@ -85,22 +96,18 @@ extension DashViewController: GMSMapViewDelegate{
         pointMarkerTarget?.map = self.mapDashView
         selectedZone = mapDashView.getZoneFor(coordinate,zonesGMS: zonesGMS)
         if selectedZone != nil {
+            currentZone?.mapPolygon.fillColor = UIColor(red:0.60, green:0.60, blue:0.60, alpha: 0.5);
             selectedZone?.mapPolygon.fillColor = UIColor(red:0.39, green:0.90, blue:0.75, alpha: 0.5);
         }
     }
     
     func mapView(mapView: GMSMapView!, idleAtCameraPosition position: GMSCameraPosition!) {
-        myCurrentLocationName(position.target)
     }
     
     func myCurrentLocationName(coordinate: CLLocationCoordinate2D) {
         let geocoder = GMSGeocoder()
         let newLine: String = "\n"
 
-//        if currentZone != nil {
-//            currentZone?.mapPolygon.fillColor = UIColor(red:0.60, green:0.90, blue:0.90, alpha: 0.1);
-//        }
-        
         geocoder.reverseGeocodeCoordinate(coordinate) { response , error in
             if let location = response?.firstResult() {
                 let location_strs = location.lines as [String]
@@ -110,9 +117,13 @@ extension DashViewController: GMSMapViewDelegate{
                 }
             }
         }
-        currentZone = mapDashView.getZoneFor(coordinate,zonesGMS: zonesGMS)
-        if currentZone != nil {
-            currentZone?.mapPolygon.fillColor = UIColor(red:0.60, green:0.60, blue:0.60, alpha: 0.5);
+        
+        if let tempZone = mapDashView.getZoneFor(coordinate,zonesGMS: zonesGMS) {
+            if currentZone == nil || currentZone!.id! != tempZone.id!{
+                currentZone = tempZone
+                mapDashView.camera = GMSCameraPosition(target: coordinate, zoom: 12, bearing: 0, viewingAngle: 0)
+                currentZone?.mapPolygon.fillColor = UIColor(red:0.60, green:0.60, blue:0.60, alpha: 0.5);
+            }
         }
     }
 }

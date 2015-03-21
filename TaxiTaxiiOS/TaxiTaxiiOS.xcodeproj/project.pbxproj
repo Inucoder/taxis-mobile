@@ -50,6 +50,7 @@
 		A737FF1F1ABD520100EA959B /* ZoneService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737FF1E1ABD520100EA959B /* ZoneService.swift */; };
 		A737FF211ABD5C9700EA959B /* ExtensionGMSMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737FF201ABD5C9700EA959B /* ExtensionGMSMapView.swift */; };
 		A737FF231ABD6A4700EA959B /* SCLAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737FF221ABD6A4700EA959B /* SCLAlertView.swift */; };
+		A737FF271ABDEB7A00EA959B /* costs.json in Resources */ = {isa = PBXBuildFile; fileRef = A737FF261ABDEB7A00EA959B /* costs.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		A737FF1E1ABD520100EA959B /* ZoneService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoneService.swift; sourceTree = "<group>"; };
 		A737FF201ABD5C9700EA959B /* ExtensionGMSMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionGMSMapView.swift; sourceTree = "<group>"; };
 		A737FF221ABD6A4700EA959B /* SCLAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCLAlertView.swift; path = "SCLAlertView-Swift/Classes/SCLAlertView.swift"; sourceTree = "<group>"; };
+		A737FF261ABDEB7A00EA959B /* costs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = costs.json; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +254,7 @@
 		A737F99C1ABCE0CF003CFAB5 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				A737FF261ABDEB7A00EA959B /* costs.json */,
 				A737FF151ABD46F500EA959B /* zones.json */,
 				A737F99D1ABCE0CF003CFAB5 /* Config.swift */,
 			);
@@ -393,6 +396,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A737FF271ABDEB7A00EA959B /* costs.json in Resources */,
 				A737F9591ABCB1A6003CFAB5 /* Main.storyboard in Resources */,
 				A737F95E1ABCB1A6003CFAB5 /* LaunchScreen.xib in Resources */,
 				A737F95B1ABCB1A6003CFAB5 /* Images.xcassets in Resources */,
@@ -573,7 +577,7 @@
 					"$(PROJECT_DIR)/TaxiTaxiiOS/Frameworks",
 				);
 				INFOPLIST_FILE = TaxiTaxiiOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -595,7 +599,7 @@
 					"$(PROJECT_DIR)/TaxiTaxiiOS/Frameworks",
 				);
 				INFOPLIST_FILE = TaxiTaxiiOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

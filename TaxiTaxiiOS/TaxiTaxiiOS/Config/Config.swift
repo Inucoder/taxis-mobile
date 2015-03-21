@@ -13,7 +13,8 @@ class CONFIG {
         static var API_KEY:String = "AIzaSyCOf6BRHOsT-M5zUeZoz3Yfr_18YSRAb3c"
     }
     struct FILE {
-        static var NAME:String = "zones"
+        static var ZONES:String = "zones"
+        static var COSTS:String = "costs"
         static var TYPE:String = "json"
     }
 }
