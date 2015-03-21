@@ -1,19 +1,19 @@
+html, body {
+  height: 100%;
+}
 body {
   font-family: "Comfortaa",Helvetica,Arial,sans-serif;
   font-size: 14px;
   line-height: 1.43;
   color: #565a5c;
-  background-color: #f5f5f5;
   -webkit-font-smoothing: antialiased;
 }
-
 [type="text"], [type="password"], [type="search"], [type="email"], [type="url"], [type="tel"], textarea, select, .input-prefix, .input-suffix {
   padding: 8px 10px;
 }
 .p1-hero-wrapper {
   position: relative;
-  height: 550px;
-  max-height: 550px;
+  height: 100%;
   background-color: #26C281;
 }
 #hero {
@@ -27,8 +27,7 @@ body {
 }
 .search-area {
   position: relative;
-  top: 50px;
-  height: 550px;
+  height: 100%;
   width: 100%;
 }
 
@@ -58,13 +57,13 @@ body {
   color: #fff;
 }
 .text-jumbo {
-  font-family: "OpenSansSemibold",Helvetica,Arial,sans-serif;
-  font-size: 60px;
+  font-family: "Ubuntu",Helvetica,Arial,sans-serif;
+  font-size: 40px;
   font-weight: 600;
 }
 #subtitle {
-  font-family: "OpenSansSemibold",Helvetica,Arial,sans-serif;
-  font-size: 20px;
+  font-family: "Ubuntu",Helvetica,Arial,sans-serif;
+  font-size: 18px;
 }
 .p1-hero-search-form {
   background: #000;
@@ -161,4 +160,42 @@ body {
 .logo {
   width: 36px;
   float: left;
+}
+.nav>li>a, .nav>li>a {
+  font-weight: bold;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+  text-decoration: none;
+  background-color: transparent;
+  color: #333;
+}
+.download-app {
+  position:relative;
+  bottom: -130px;
+}
+.subheader {
+  padding: 10px;
+  height: 60px;
+  background-color: #26C281;
+}
+.subheader .header-belo {
+  font-size: 24px;
+  color: white;
+  font-weight: 700;
+  font-family: 'Ubuntu', sans-serif;
+  display: block;
+  width: 102px;
+  height: 32px;
+  margin: 0 auto;
+  text-decoration: none;
+  float: left;
+  padding-top: 7px;
+}
+.subheader .header-belo:hover {
+  text-decoration: none;
+}
+.iphone {
+  position: absolute;
+  bottom: 0px;
+  left: 150px;
 }
