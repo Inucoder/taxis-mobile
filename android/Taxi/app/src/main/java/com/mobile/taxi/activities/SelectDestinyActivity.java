@@ -1,18 +1,18 @@
 package com.mobile.taxi.activities;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -25,7 +25,6 @@ import com.google.maps.android.PolyUtil;
 import com.mobile.taxi.R;
 import com.mobile.taxi.adapters.PlacesSuggestionAdapter;
 import com.mobile.taxi.events.ApiErrorEvent;
-import com.mobile.taxi.events.GeocodeLatLngEvent;
 import com.mobile.taxi.events.GeocodeLatLngResultEvent;
 import com.mobile.taxi.events.GetSuggestionsEvent;
 import com.mobile.taxi.events.GetSuggestionsResultEvent;
@@ -69,6 +68,8 @@ public class SelectDestinyActivity extends ActionBarActivity {
     private int[][] costs;
     private DragListener mapListener;
     private Button button;
+    private ProgressBar progressBar;
+    private SearchView destinyLocationSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +83,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             toolbar.setLogo(R.mipmap.ic_launcher);
+            progressBar = (ProgressBar) findViewById(R.id.progress_spinner);
         }
 
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.taxi_map)).getMap();
@@ -91,7 +93,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
         LocalitySearchListener searchListener = new LocalitySearchListener();
 
-        SearchView destinyLocationSearch = (SearchView) findViewById(R.id.sv_destiny_location);
+        destinyLocationSearch = (SearchView) findViewById(R.id.sv_destiny_location);
         destinyLocationSearch.setOnSuggestionListener(searchListener);
         destinyLocationSearch.setOnQueryTextListener(searchListener);
 
@@ -108,10 +110,19 @@ public class SelectDestinyActivity extends ActionBarActivity {
             }
         });
 
+        showProgressBar(true);
+
         //Request Zones and Costs
         bus.post(new GetZonesEvent());
         bus.post(new GetZoneCostsEvent());
 
+    }
+
+    private void showProgressBar(boolean show) {
+        if (show)
+            progressBar.setVisibility(View.VISIBLE);
+        else
+            progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -128,6 +139,8 @@ public class SelectDestinyActivity extends ActionBarActivity {
         for (TaxiZone zone : zones) {
             zone.inflateArea(map);
         }
+
+        showProgressBar(false);
 
     }
 
@@ -160,12 +173,16 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
         Result first = geocodeResponse.getResults().get(0);
 
+        showProgressBar(false);
     }
 
     @Subscribe
     public void onCostsEvent(GetZoneCostsResultEvent event) {
         costs = event.costs;
         Log.i(TAG, Arrays.toString(costs));
+
+        showProgressBar(false);
+
     }
 
     @Subscribe
@@ -174,6 +191,8 @@ public class SelectDestinyActivity extends ActionBarActivity {
         List<Prediction> predictions = event.response.getPredictions();
         Cursor cursor = PredictionsCursorFactory.generate(predictions, FROM_PLACES);
         suggestionAdapter.changeCursor(cursor);
+
+        showProgressBar(false);
 
     }
 
@@ -192,6 +211,8 @@ public class SelectDestinyActivity extends ActionBarActivity {
         mapListener.getMarker().setPosition(point);
         checkZones(mapListener.marker);
 
+        showProgressBar(false);
+
     }
 
     @Subscribe
@@ -201,6 +222,8 @@ public class SelectDestinyActivity extends ActionBarActivity {
                 .setTitleText("¿Estás conectado a Internet?")
                 .setContentText("Habilita tu conexión de datos primero.")
                 .show();
+
+        showProgressBar(false);
 
     }
 
@@ -276,20 +299,24 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
         @Override
         public boolean onQueryTextSubmit(String query) {
-            if (query.length() > 3) {
-                bus.post(new GetSuggestionsEvent(query));
-                return true;
-            }
-            return false;
+            return searchPredictions(query);
         }
 
         @Override
         public boolean onQueryTextChange(String query) {
+            return searchPredictions(query);
+        }
+
+        private boolean searchPredictions(String query) {
+
             if (query.length() > 3) {
+                showProgressBar(true);
                 bus.post(new GetSuggestionsEvent(query));
                 return true;
             }
+
             return false;
+
         }
 
         @Override
@@ -303,11 +330,21 @@ public class SelectDestinyActivity extends ActionBarActivity {
         }
 
         private boolean getDetails(int position) {
+
             Cursor cursor = (Cursor) suggestionAdapter.getItem(position);
             String placeId = cursor.getString(1);
 
             if (!placeId.isEmpty()) {
-                bus.post(new PlaceDetailEvent(cursor.getString(1)));
+
+                String description = cursor.getString(2);
+
+                destinyLocationSearch.setQuery(description, false);
+
+                bus.post(new PlaceDetailEvent(placeId));
+                showProgressBar(true);
+
+                //El teclado se mantiene abierto, un pequenio hack para cerrarlo...
+                hideKeyboard();
                 return true;
             } else {
                 return false;
@@ -322,6 +359,9 @@ public class SelectDestinyActivity extends ActionBarActivity {
         if (destinationZone != null) {
             destinationZone.fillAsNonSelected();
             destinationZone = null;
+
+            marker.setTitle("");
+
         }
 
         for (TaxiZone zone : zones) {
@@ -329,6 +369,10 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
                 destinationZone = zone;
                 zone.fillAsDestination();
+
+                marker.setTitle(zone.getName());
+                marker.showInfoWindow();
+
                 return;
             }
         }
@@ -355,6 +399,14 @@ public class SelectDestinyActivity extends ActionBarActivity {
         dialog.setContentText(content);
         dialog.show();
 
+    }
+
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
 }
