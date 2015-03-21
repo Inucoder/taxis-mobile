@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="taxi_color">#26c281</color>
+    <color name="orange_button">#FBAB1C</color>
 </resources>

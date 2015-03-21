@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.mobile.taxi.events.ApiErrorEvent;
 import com.mobile.taxi.events.GeocodeLatLngEvent;
 import com.mobile.taxi.events.GeocodeLatLngResultEvent;
 import com.mobile.taxi.events.GetSuggestionsEvent;
@@ -97,8 +98,7 @@ public class ApiService {
 
             @Override
             public void failure(RetrofitError error) {
-                error.getResponse().getReason();
-                Log.e(TAG, error.getMessage());
+                bus.post(new ApiErrorEvent());
             }
 
         });
@@ -118,8 +118,7 @@ public class ApiService {
 
             @Override
             public void failure(RetrofitError error) {
-                error.getResponse().getReason();
-                Log.e(TAG, error.getMessage());
+                bus.post(new ApiErrorEvent());
             }
         });
 
@@ -140,9 +139,9 @@ public class ApiService {
 
             @Override
             public void failure(RetrofitError error) {
-                error.getResponse().getReason();
-                Log.e(TAG, error.getMessage());
+                bus.post(new ApiErrorEvent());
             }
+
         });
 
 

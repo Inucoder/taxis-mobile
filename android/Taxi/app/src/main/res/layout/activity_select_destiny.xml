@@ -33,12 +33,14 @@
             android:id="@+id/btn_calculate_cost"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="@color/orange_button"
             android:text="Calcular Costo"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:enabled="false"/>
 
     </RelativeLayout>
 

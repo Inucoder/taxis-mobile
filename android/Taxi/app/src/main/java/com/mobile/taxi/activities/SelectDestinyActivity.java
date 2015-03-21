@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.PolyUtil;
 import com.mobile.taxi.R;
 import com.mobile.taxi.adapters.PlacesSuggestionAdapter;
+import com.mobile.taxi.events.ApiErrorEvent;
 import com.mobile.taxi.events.GeocodeLatLngEvent;
 import com.mobile.taxi.events.GeocodeLatLngResultEvent;
 import com.mobile.taxi.events.GetSuggestionsEvent;
@@ -78,8 +79,10 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
         // Replace action bar with toolbar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null)
+        if (toolbar != null) {
             setSupportActionBar(toolbar);
+            toolbar.setLogo(R.drawable.ic_launcher);
+        }
 
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.taxi_map)).getMap();
         assert (map != null);
@@ -191,6 +194,16 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
     }
 
+    @Subscribe
+    public void onApiError(ApiErrorEvent event) {
+
+        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("¿Estás conectado a Internet?")
+                .setContentText("Habilita tu conexión de datos primero.")
+                .show();
+
+    }
+
     class DragListener implements GoogleMap.OnMapClickListener, GoogleMap.OnMarkerDragListener, GoogleMap.OnMyLocationChangeListener {
 
         private Marker marker;
@@ -202,7 +215,6 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
             currentMarker.setPosition(latLng);
             checkZones(marker);
-            geocodePosition();
 
         }
 
@@ -219,12 +231,6 @@ public class SelectDestinyActivity extends ActionBarActivity {
         @Override
         public void onMarkerDragEnd(Marker marker) {
             checkZones(marker);
-            geocodePosition();
-        }
-
-        private void geocodePosition() {
-            LatLng point = marker.getPosition();
-            bus.post(new GeocodeLatLngEvent(point));
         }
 
         @Override
@@ -323,8 +329,6 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
                 destinationZone = zone;
                 zone.fillAsDestination();
-
-                Toast.makeText(SelectDestinyActivity.this, "Zona " + zone.getName() + " tocada", Toast.LENGTH_LONG).show();
                 return;
             }
         }
@@ -333,7 +337,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
     }
 
-    private void changeButtonState(){
+    private void changeButtonState() {
         button.setEnabled(sourceZone != null && destinationZone != null);
     }
 
@@ -347,9 +351,8 @@ public class SelectDestinyActivity extends ActionBarActivity {
         SweetAlertDialog dialog = new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE);
         dialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         dialog.setTitleText("Tarifa");
-        dialog.setContentText("Origen: " + sourceZone.getName() + "\n");
-        dialog.setContentText("Destino: " + destinationZone.getName() + "\n");
-        dialog.setContentText("Costo: $" + price);
+        String content = "Origen: " + sourceZone.getName() + "\n" + "Destino: " + destinationZone.getName() + "\n" + "Costo: $" + price;
+        dialog.setContentText(content);
         dialog.show();
 
     }
