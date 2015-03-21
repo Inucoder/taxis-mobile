@@ -1,6 +1,7 @@
 package com.mobile.taxi.services;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -28,14 +29,17 @@ public class ApiService {
 
     private static final String TAG = ApiService.class.getName();
 
+    private static final String DEFAULT_COUNTRY_COMPONENT = "country:MX";
+    private static final String DEFAULT_COMPONENTS = DEFAULT_COUNTRY_COMPONENT + "|locality:" + Uri.encode("Cancún");
+
     private Bus bus;
-    private Context contex;
+    private Context context;
 
     private GoogleApi googleApi;
 
     public ApiService(Bus bus, GoogleApi googleApi, Context contex) {
         this.bus = bus;
-        this.contex = contex;
+        this.context = contex;
         this.googleApi = googleApi;
     }
 
@@ -43,7 +47,7 @@ public class ApiService {
     public void onGetZones(GetZonesEvent event) {
 
         //TODO: Regresar zonas consumidas del ws
-        String json = TaxiJsonReader.loadJSONFromAsset(contex);
+        String json = TaxiJsonReader.loadJSONFromAsset(context);
 
         Gson gson = new Gson();
 
@@ -54,11 +58,11 @@ public class ApiService {
     }
 
     @Subscribe
-    public void onGeocodePoint(GeocodeLatLngEvent event){
+    public void onGeocodePoint(GeocodeLatLngEvent event) {
 
         String latLng = event.point.latitude + "," + event.point.longitude;
 
-        googleApi.geocodeLatLng(latLng, new Callback<GeocodingResponse>() {
+        googleApi.geocodeLatLng(latLng, DEFAULT_COUNTRY_COMPONENT, new Callback<GeocodingResponse>() {
             @Override
             public void success(GeocodingResponse geocodingResponse, Response response) {
                 bus.post(new GeocodeLatLngResultEvent(geocodingResponse));

@@ -34,4 +34,22 @@ public class Result {
         this.addressComponents = addressComponents;
     }
 
+    public String getFormatedAddress(){
+
+        AddressComponent streetComponent = getAddressComponents().get(0);
+        AddressComponent neighborhoodComponent = getAddressComponents().get(0);
+
+        String address = "";
+
+        if(streetComponent != null){
+            address = streetComponent.getLongName();
+        }
+
+        if(neighborhoodComponent != null){
+            address = " " + neighborhoodComponent.getLongName();
+        }
+
+        return address;
+    }
+
 }

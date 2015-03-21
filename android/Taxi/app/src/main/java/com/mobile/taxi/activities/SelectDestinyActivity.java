@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -40,6 +41,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
     private List<TaxiZone> zones;
 
     private TaxiZone selectedZone;
+    private TextView destinyAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,9 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
         configureMap();
 
-        SearchView destinyLocationSearch = (SearchView)findViewById(R.id.sv_destiny_location);
+        destinyAddress = (TextView) findViewById(R.id.tv_destiny_address);
+
+        SearchView destinyLocationSearch = (SearchView) findViewById(R.id.sv_destiny_location);
 
         bus.post(new GetZonesEvent());
 
@@ -115,15 +119,18 @@ public class SelectDestinyActivity extends ActionBarActivity {
     }
 
     @Subscribe
-    public void onPointGeocoded(GeocodeLatLngResultEvent event){
+    public void onPointGeocoded(GeocodeLatLngResultEvent event) {
 
         GeocodingResponse geocodeResponse = event.geocodingResponse;
 
-        Log.i(TAG, geocodeResponse.toString());
-
-        for(Result result : geocodeResponse.getResults()){
-            Log.i(TAG, result.getAddressComponents().toString());
+        if (geocodeResponse.getResults().isEmpty()) {
+            Toast.makeText(this, "No se encontró dirección", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        Result first = geocodeResponse.getResults().get(0);
+
+        destinyAddress.setText(first.getFormatedAddress());
 
     }
 
@@ -139,10 +146,10 @@ public class SelectDestinyActivity extends ActionBarActivity {
             } else {
                 marker.setPosition(latLng);
                 marker.setDraggable(true);
-                geocodePosition();
             }
 
             checkZones();
+            geocodePosition();
 
         }
 
@@ -162,7 +169,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
             geocodePosition();
         }
 
-        private void checkZones(){
+        private void checkZones() {
 
             for (TaxiZone zone : zones) {
                 if (PolyUtil.containsLocation(marker.getPosition(), zone.getPoints(), true)) {
@@ -186,7 +193,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
         }
 
-        private void geocodePosition(){
+        private void geocodePosition() {
             LatLng point = marker.getPosition();
             bus.post(new GeocodeLatLngEvent(point));
         }

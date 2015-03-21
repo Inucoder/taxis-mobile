@@ -14,6 +14,6 @@ public interface GoogleApi {
     public static final String ENDPOINT = "https://maps.googleapis.com/maps/api";
 
     @GET("/geocode/json")
-    public void geocodeLatLng(@Query("latlng") String latLng, Callback<GeocodingResponse> callback);
+    public void geocodeLatLng(@Query("latlng") String latLng, @Query("components") String components, Callback<GeocodingResponse> callback);
 
 }
