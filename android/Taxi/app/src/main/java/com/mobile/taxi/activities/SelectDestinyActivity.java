@@ -1,23 +1,32 @@
 package com.mobile.taxi.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolygonOptions;
 import com.mobile.taxi.R;
 import com.mobile.taxi.events.GetZonesEvent;
 import com.mobile.taxi.events.GetZonesResultEvent;
+import com.mobile.taxi.models.TaxiZone;
 import com.mobile.taxi.services.BusInstance;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
+
+import java.util.List;
 
 public class SelectDestinyActivity extends ActionBarActivity {
 
     private static final String TAG = SelectDestinyActivity.class.getName();
 
     private Bus bus = BusInstance.getInstance();
+    private GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +39,9 @@ public class SelectDestinyActivity extends ActionBarActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null)
             setSupportActionBar(toolbar);
+
+        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.taxi_map)).getMap();
+        assert (map != null);
 
         bus.post(new GetZonesEvent());
 
@@ -64,7 +76,13 @@ public class SelectDestinyActivity extends ActionBarActivity {
     }
 
     @Subscribe
-    public void onZonesReceived(GetZonesResultEvent event){
+    public void onZonesReceived(GetZonesResultEvent event) {
+
+        List<TaxiZone> zones = event.zones;
+
+        for(TaxiZone zone : zones){
+            map.addPolygon(zone.getArea());
+        }
 
     }
 

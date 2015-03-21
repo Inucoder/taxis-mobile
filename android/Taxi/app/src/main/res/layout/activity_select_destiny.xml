@@ -12,9 +12,10 @@
         android:layout_height="fill_parent">
 
         <fragment
-            android:id="@+id/full_map"
+            android:id="@+id/taxi_map"
             android:name="com.google.android.gms.maps.MapFragment"
             android:layout_width="match_parent"
+            android:tag="taxi_map"
             android:layout_height="match_parent">
 
         </fragment>
