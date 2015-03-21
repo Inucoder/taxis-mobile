@@ -51,6 +51,8 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
     private static final String[] FROM_PLACES = new String[]{"_id", "place_id", "description"};
 
+    private static final LatLng CANCUN_CENTER_POINT = new LatLng(21.161681372089326, -86.85911178588867);
+
     private Bus bus = BusInstance.getInstance();
     private GoogleMap map;
 
@@ -148,9 +150,8 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
         map.setOnMyLocationChangeListener(mapListener);
 
-        LatLng point = new LatLng(21.161681372089326, -86.85911178588867);
 
-        map.moveCamera(CameraUpdateFactory.newLatLng(point));
+        map.moveCamera(CameraUpdateFactory.newLatLng(CANCUN_CENTER_POINT));
         map.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
 
     }
@@ -270,7 +271,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
         public Marker getMarker() {
 
             if (this.marker == null) {
-                marker = map.addMarker(new MarkerOptions().draggable(true));
+                marker = map.addMarker(new MarkerOptions().position(CANCUN_CENTER_POINT).draggable(true));
             }
 
             return marker;
