@@ -28,6 +28,7 @@
             android:name=".activities.MainActivity"
             android:label="@string/app_name" >
         </activity>
+
         <activity
             android:name=".activities.SelectDestinyActivity"
             android:label="@string/title_activity_select_destiny"
