@@ -56,7 +56,8 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
     private List<TaxiZone> zones;
 
-    private TaxiZone selectedZone;
+    private TaxiZone sourceZone;
+    private TaxiZone destinationZone;
     private TextView destinyAddress;
     private SimpleCursorAdapter suggestionAdapter;
     private int[][] costs;
@@ -144,6 +145,8 @@ public class SelectDestinyActivity extends ActionBarActivity {
         map.setOnMapClickListener(mapListener);
         map.setOnMarkerDragListener(mapListener);
 
+        map.setOnMyLocationChangeListener(mapListener);
+
     }
 
     @Subscribe
@@ -163,7 +166,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
     }
 
     @Subscribe
-    public void onCostsEvent(GetZoneCostsResultEvent event){
+    public void onCostsEvent(GetZoneCostsResultEvent event) {
         costs = event.costs;
         Log.i(TAG, Arrays.toString(costs));
     }
@@ -191,7 +194,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
     }
 
-    class DragListener implements GoogleMap.OnMapClickListener, GoogleMap.OnMarkerDragListener {
+    class DragListener implements GoogleMap.OnMapClickListener, GoogleMap.OnMarkerDragListener, GoogleMap.OnMyLocationChangeListener {
 
         private Marker marker;
 
@@ -231,11 +234,11 @@ public class SelectDestinyActivity extends ActionBarActivity {
             for (TaxiZone zone : zones) {
                 if (PolyUtil.containsLocation(marker.getPosition(), zone.getPoints(), true)) {
 
-                    if (selectedZone != null) {
-                        selectedZone.getArea().setFillColor(Color.BLUE);
+                    if (destinationZone != null) {
+                        destinationZone.getArea().setFillColor(Color.BLUE);
                     }
 
-                    selectedZone = zone;
+                    destinationZone = zone;
                     zone.getArea().setFillColor(Color.GREEN);
 
                     Toast.makeText(SelectDestinyActivity.this, "Zona " + zone.getName() + " tocada", Toast.LENGTH_LONG).show();
@@ -243,16 +246,46 @@ public class SelectDestinyActivity extends ActionBarActivity {
                 }
             }
 
-            if (selectedZone != null) {
-                selectedZone.getArea().setFillColor(Color.BLUE);
-                selectedZone = null;
+            if (destinationZone != null) {
+                destinationZone.getArea().setFillColor(Color.BLUE);
+                destinationZone = null;
             }
+
+            displayCosts();
 
         }
 
         private void geocodePosition() {
             LatLng point = marker.getPosition();
             bus.post(new GeocodeLatLngEvent(point));
+        }
+
+        @Override
+        public void onMyLocationChange(android.location.Location location) {
+
+            LatLng sourcePoint = new LatLng(location.getLatitude(), location.getLongitude());
+
+            if (sourceZone != null) {
+                sourceZone.getArea().setFillColor(Color.BLUE);
+            }
+
+            for (TaxiZone zone : zones) {
+
+                if (PolyUtil.containsLocation(sourcePoint, zone.getPoints(), true)) {
+                    sourceZone = zone;
+
+                    if (sourceZone != destinationZone) {
+                        sourceZone.getArea().setFillColor(Color.YELLOW);
+                    } else {
+                        sourceZone.getArea().setFillColor(Color.GREEN);
+                    }
+
+                    break;
+                }
+            }
+
+            displayCosts();
+
         }
 
     }
@@ -299,6 +332,16 @@ public class SelectDestinyActivity extends ActionBarActivity {
             }
         }
 
+
+    }
+
+    private void displayCosts() {
+
+        if (sourceZone == null || destinationZone == null)
+            return;
+
+        int cost = costs[sourceZone.getId()][destinationZone.getId()];
+        Log.i(TAG, "Costo: " + cost);
 
     }
 
