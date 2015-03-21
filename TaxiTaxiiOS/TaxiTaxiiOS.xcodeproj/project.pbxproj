@@ -51,6 +51,7 @@
 		A737FF211ABD5C9700EA959B /* ExtensionGMSMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737FF201ABD5C9700EA959B /* ExtensionGMSMapView.swift */; };
 		A737FF231ABD6A4700EA959B /* SCLAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737FF221ABD6A4700EA959B /* SCLAlertView.swift */; };
 		A737FF271ABDEB7A00EA959B /* costs.json in Resources */ = {isa = PBXBuildFile; fileRef = A737FF261ABDEB7A00EA959B /* costs.json */; };
+		A76829161ABE07DB0019B7A0 /* ExtensionString.swift in Sources */ = {isa = PBXBuildFile; fileRef = A76829151ABE07DB0019B7A0 /* ExtensionString.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		A737FF201ABD5C9700EA959B /* ExtensionGMSMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionGMSMapView.swift; sourceTree = "<group>"; };
 		A737FF221ABD6A4700EA959B /* SCLAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCLAlertView.swift; path = "SCLAlertView-Swift/Classes/SCLAlertView.swift"; sourceTree = "<group>"; };
 		A737FF261ABDEB7A00EA959B /* costs.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = costs.json; sourceTree = SOURCE_ROOT; };
+		A76829151ABE07DB0019B7A0 /* ExtensionString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionString.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +224,7 @@
 			children = (
 				A737F9771ABCBEAA003CFAB5 /* ExtensionUIColor.swift */,
 				A737FF201ABD5C9700EA959B /* ExtensionGMSMapView.swift */,
+				A76829151ABE07DB0019B7A0 /* ExtensionString.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				A737FF031ABD42D800EA959B /* Mapper.swift in Sources */,
 				A737F99E1ABCE0CF003CFAB5 /* Config.swift in Sources */,
 				A737FF181ABD4CC600EA959B /* SwiftyJSON.swift in Sources */,
+				A76829161ABE07DB0019B7A0 /* ExtensionString.swift in Sources */,
 				A737F9A31ABD031E003CFAB5 /* PointMarker.swift in Sources */,
 				A737FF021ABD42D800EA959B /* FromJSON.swift in Sources */,
 				A737FF111ABD433500EA959B /* MapLatLng.swift in Sources */,
