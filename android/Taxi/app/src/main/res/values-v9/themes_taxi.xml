@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Taxi" parent="@style/_Taxi">
+
+        <!--Removing ol' actionbar, mate-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+
+        <item name="android:textSelectHandleLeft">@drawable/taxi_text_select_handle_left</item>
+        <item name="android:textSelectHandleRight">@drawable/taxi_text_select_handle_right</item>
+        <item name="android:textSelectHandle">@drawable/taxi_text_select_handle_middle</item>
+
+    </style>
+
+</resources>

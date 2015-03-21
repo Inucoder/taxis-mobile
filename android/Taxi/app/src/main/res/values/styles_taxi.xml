@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="EditTextTaxi" parent="android:Widget.EditText">
+	  <item name="android:background">@drawable/taxi_edit_text_holo_light</item>
+	  <item name="android:textColor">#000000</item>
+  </style>
+
+  <style name="AutoCompleteTextViewTaxi" parent="android:Widget.AutoCompleteTextView">
+      <item name="android:dropDownSelector">@drawable/taxi_list_selector_holo_light</item>
+	  <item name="android:background">@drawable/taxi_edit_text_holo_light</item>
+	  <item name="android:textColor">#000000</item>
+  </style>
+
+  <style name="CheckBoxTaxi" parent="android:Widget.CompoundButton.CheckBox">
+      <item name="android:button">@drawable/taxi_btn_check_holo_light</item>
+  </style>
+
+  <style name="RadioButtonTaxi" parent="android:Widget.CompoundButton.RadioButton">
+      <item name="android:button">@drawable/taxi_btn_radio_holo_light</item>
+  </style>
+
+  <style name="ButtonTaxi" parent="android:Widget.Button">
+	  <item name="android:background">@drawable/taxi_btn_default_holo_light</item>
+	  <item name="android:minHeight">48dip</item>
+	  <item name="android:minWidth">64dip</item>
+	  <item name="android:textColor">#000000</item>
+  </style>
+
+  <style name="ImageButtonTaxi" parent="android:Widget.ImageButton">
+	  <item name="android:background">@drawable/taxi_btn_default_holo_light</item>
+  </style>
+
+  <style name="SpinnerTaxi" parent="android:Widget.Spinner">
+      <item name="android:background">@drawable/taxi_spinner_background_holo_light</item>
+      <item name="android:dropDownSelector">@drawable/taxi_list_selector_holo_light</item>
+  </style>
+
+  <style name="SpinnerDropDownItemTaxi" parent="android:Widget.DropDownItem.Spinner">
+      <item name="android:checkMark">@drawable/taxi_btn_radio_holo_light</item>
+  </style>
+  <style name="TabTaxi">
+      <item name="android:gravity">center_horizontal</item>
+      <item name="android:paddingLeft">16dip</item>
+      <item name="android:paddingRight">16dip</item>
+      <item name="android:background">@drawable/taxi_tab_indicator_holo</item>
+      <item name="android:layout_width">0dip</item>
+      <item name="android:layout_weight">1</item>
+      <item name="android:minWidth">80dip</item>
+  </style>
+
+  <style name="TabTextTaxi">
+	  <item name="android:textColor">#000000</item>
+      <item name="android:textSize">12sp</item>
+      <item name="android:textStyle">bold</item>
+      <!-- v14 <item name="android:textAllCaps">true</item> -->
+      <item name="android:ellipsize">marquee</item>
+      <item name="android:maxLines">2</item>
+      <item name="android:maxWidth">180dip</item>
+  </style>
+
+  <style name="ProgressBarTaxi" parent="android:Widget.ProgressBar.Horizontal">
+      <item name="android:progressDrawable">@drawable/taxi_progress_horizontal_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/taxi_progress_indeterminate_horizontal_holo_light</item>
+      <item name="android:minHeight">16dip</item>
+      <item name="android:maxHeight">16dip</item>
+  </style>
+
+  <style name="SeekBarTaxi" parent="android:Widget.SeekBar">
+      <item name="android:progressDrawable">@drawable/taxi_scrubber_progress_horizontal_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/taxi_scrubber_progress_horizontal_holo_light</item>
+      <item name="android:minHeight">13dip</item>
+      <item name="android:maxHeight">13dip</item>
+      <item name="android:thumb">@drawable/taxi_scrubber_control_selector_holo_light</item>
+      <item name="android:thumbOffset">16dip</item>
+      <item name="android:paddingLeft">16dip</item>
+      <item name="android:paddingRight">16dip</item>
+  </style>
+
+  <style name="RatingBarTaxi" parent="android:Widget.RatingBar">
+      <item name="android:progressDrawable">@drawable/taxi_ratingbar_full_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/taxi_ratingbar_full_holo_light</item>
+  </style>
+
+  <style name="RatingBarBigTaxi" parent="android:Widget.RatingBar">
+      <item name="android:progressDrawable">@drawable/taxi_ratingbar_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/taxi_ratingbar_holo_light</item>
+      <item name="android:minHeight">35dip</item>
+      <item name="android:maxHeight">35dip</item>
+  </style>
+
+  <style name="RatingBarSmallTaxi" parent="android:Widget.RatingBar">
+      <item name="android:progressDrawable">@drawable/taxi_ratingbar_small_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/taxi_ratingbar_small_holo_light</item>
+      <item name="android:minHeight">16dip</item>
+      <item name="android:maxHeight">16dip</item>
+  </style>
+
+  <style name="ToggleTaxi" parent="android:Widget.Button.Toggle">
+      <item name="android:background">@drawable/taxi_btn_toggle_holo_light</item>
+      <item name="android:minHeight">48dip</item>
+	  <item name="android:textColor">#000000</item>
+  </style>
+
+  <style name="ListViewTaxi" parent="android:Widget.ListView">
+      <item name="android:listSelector">@drawable/taxi_list_selector_holo_light</item>
+  </style>
+
+  <style name="ListViewTaxi.White" parent="android:Widget.ListView.White">
+      <item name="android:listSelector">@drawable/taxi_list_selector_holo_light</item>
+  </style>
+
+  <style name="SpinnerItemTaxi" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+      <item name="android:textColor">#000000</item>
+  </style>
+
+</resources>
