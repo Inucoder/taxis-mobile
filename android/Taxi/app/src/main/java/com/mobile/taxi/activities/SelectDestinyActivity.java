@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -12,6 +11,8 @@ import android.widget.Toast;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.PolyUtil;
 import com.mobile.taxi.R;
 import com.mobile.taxi.events.GetZonesEvent;
@@ -98,32 +99,69 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
         map.setMyLocationEnabled(true);
 
-        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
+        DragListener mapListener = new DragListener();
 
-                for (TaxiZone zone : zones) {
-                    if (PolyUtil.containsLocation(latLng, zone.getPoints(), true)) {
+        map.setOnMapClickListener(mapListener);
+        map.setOnMarkerDragListener(mapListener);
 
-                        if(selectedZone != null){
-                            selectedZone.getArea().setFillColor(Color.BLUE);
-                        }
+    }
 
-                        selectedZone = zone;
-                        zone.getArea().setFillColor(Color.GREEN);
+    class DragListener implements GoogleMap.OnMapClickListener, GoogleMap.OnMarkerDragListener {
 
-                        Toast.makeText(SelectDestinyActivity.this, "Zona " + zone.getName() + " tocada", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                }
+        private Marker marker;
 
-                if(selectedZone != null){
-                    selectedZone.getArea().setFillColor(Color.BLUE);
-                    selectedZone = null;
-                }
+        @Override
+        public void onMapClick(LatLng latLng) {
 
+            if (marker == null) {
+                marker = map.addMarker(new MarkerOptions().position(latLng).draggable(true));
+            } else {
+                marker.setPosition(latLng);
+                marker.setDraggable(true);
             }
-        });
+
+            chekZones();
+
+        }
+
+        @Override
+        public void onMarkerDragStart(Marker marker) {
+
+        }
+
+        @Override
+        public void onMarkerDrag(Marker marker) {
+
+        }
+
+        @Override
+        public void onMarkerDragEnd(Marker marker) {
+            chekZones();
+        }
+
+        private void chekZones(){
+
+            for (TaxiZone zone : zones) {
+                if (PolyUtil.containsLocation(marker.getPosition(), zone.getPoints(), true)) {
+
+                    if (selectedZone != null) {
+                        selectedZone.getArea().setFillColor(Color.BLUE);
+                    }
+
+                    selectedZone = zone;
+                    zone.getArea().setFillColor(Color.GREEN);
+
+                    Toast.makeText(SelectDestinyActivity.this, "Zona " + zone.getName() + " tocada", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+
+            if (selectedZone != null) {
+                selectedZone.getArea().setFillColor(Color.BLUE);
+                selectedZone = null;
+            }
+
+        }
 
     }
 
