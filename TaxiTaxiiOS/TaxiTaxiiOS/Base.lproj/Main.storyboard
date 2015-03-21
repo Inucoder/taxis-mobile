@@ -1,25 +1,94 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="g98-6r-6hC">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Mi ubicación actual-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="DashViewController" customModule="TaxiTaxiiOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Mi ubicación" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="joU-fk-j2Z">
+                                <rect key="frame" x="0.0" y="64" width="320" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Seleccione a donde se dirige" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ti-th-Uft">
+                                <rect key="frame" x="0.0" y="109" width="320" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alv-Ew-wrH">
+                                <rect key="frame" x="0.0" y="513" width="320" height="55"/>
+                                <color key="backgroundColor" red="0.98343664407730103" green="0.67018723487854004" blue="0.10903499275445938" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="tintColor" red="0.97244364023208618" green="0.97260981798171997" blue="0.97243314981460571" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Calcular Tarifa">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q30-ts-R0V" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="144" width="320" height="369"/>
+                                <color key="backgroundColor" red="0.074537985026836395" green="0.76587569713592529" blue="0.49824762344360352" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="joU-fk-j2Z" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="0KC-uY-2Xj"/>
+                            <constraint firstItem="joU-fk-j2Z" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="4WH-54-rbM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="joU-fk-j2Z" secondAttribute="trailing" constant="-16" id="6pb-7l-1IJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="alv-Ew-wrH" secondAttribute="trailing" constant="-16" id="QgY-eX-sgr"/>
+                            <constraint firstItem="alv-Ew-wrH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="c8k-EG-rRz"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6Ti-th-Uft" secondAttribute="trailing" constant="-16" id="fsF-za-hK8"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="q30-ts-R0V" secondAttribute="bottom" constant="55" id="gqm-IC-nZh"/>
+                            <constraint firstItem="q30-ts-R0V" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="hck-4U-p1Q"/>
+                            <constraint firstItem="q30-ts-R0V" firstAttribute="top" secondItem="6Ti-th-Uft" secondAttribute="bottom" constant="14" id="hnS-Ik-u13"/>
+                            <constraint firstItem="6Ti-th-Uft" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="ogR-8A-l1m"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="alv-Ew-wrH" secondAttribute="bottom" id="q4p-Y6-2cc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="q30-ts-R0V" secondAttribute="trailing" constant="-16" id="r70-CN-rt7"/>
+                            <constraint firstItem="alv-Ew-wrH" firstAttribute="top" secondItem="q30-ts-R0V" secondAttribute="bottom" id="wxB-gp-tLe"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Mi ubicación actual" id="Yhu-tf-3rq"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="mapDashView" destination="q30-ts-R0V" id="e9c-g7-Ihy"/>
+                        <outlet property="myCurrentLocation" destination="joU-fk-j2Z" id="iPB-Xq-nFG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1272" y="386"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Qft-LN-M9G">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="g98-6r-6hC" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CsX-0f-tYU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="wCK-Gm-56o"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lFX-OX-Od7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="873" y="386"/>
         </scene>
     </scenes>
 </document>
