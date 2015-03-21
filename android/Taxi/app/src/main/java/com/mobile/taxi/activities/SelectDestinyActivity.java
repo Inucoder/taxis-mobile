@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
@@ -16,8 +17,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.PolyUtil;
 import com.mobile.taxi.R;
+import com.mobile.taxi.events.GeocodeLatLngEvent;
+import com.mobile.taxi.events.GeocodeLatLngResultEvent;
 import com.mobile.taxi.events.GetZonesEvent;
 import com.mobile.taxi.events.GetZonesResultEvent;
+import com.mobile.taxi.models.GeocodingResponse;
+import com.mobile.taxi.models.Result;
 import com.mobile.taxi.models.TaxiZone;
 import com.mobile.taxi.services.BusInstance;
 import com.squareup.otto.Bus;
@@ -54,7 +59,6 @@ public class SelectDestinyActivity extends ActionBarActivity {
         configureMap();
 
         SearchView destinyLocationSearch = (SearchView)findViewById(R.id.sv_destiny_location);
-        
 
         bus.post(new GetZonesEvent());
 
@@ -110,6 +114,19 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
     }
 
+    @Subscribe
+    public void onPointGeocoded(GeocodeLatLngResultEvent event){
+
+        GeocodingResponse geocodeResponse = event.geocodingResponse;
+
+        Log.i(TAG, geocodeResponse.toString());
+
+        for(Result result : geocodeResponse.getResults()){
+            Log.i(TAG, result.getAddressComponents().toString());
+        }
+
+    }
+
     class DragListener implements GoogleMap.OnMapClickListener, GoogleMap.OnMarkerDragListener {
 
         private Marker marker;
@@ -122,9 +139,10 @@ public class SelectDestinyActivity extends ActionBarActivity {
             } else {
                 marker.setPosition(latLng);
                 marker.setDraggable(true);
+                geocodePosition();
             }
 
-            chekZones();
+            checkZones();
 
         }
 
@@ -140,10 +158,11 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
         @Override
         public void onMarkerDragEnd(Marker marker) {
-            chekZones();
+            checkZones();
+            geocodePosition();
         }
 
-        private void chekZones(){
+        private void checkZones(){
 
             for (TaxiZone zone : zones) {
                 if (PolyUtil.containsLocation(marker.getPosition(), zone.getPoints(), true)) {
@@ -165,6 +184,11 @@ public class SelectDestinyActivity extends ActionBarActivity {
                 selectedZone = null;
             }
 
+        }
+
+        private void geocodePosition(){
+            LatLng point = marker.getPosition();
+            bus.post(new GeocodeLatLngEvent(point));
         }
 
     }

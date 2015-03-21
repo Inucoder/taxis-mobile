@@ -13,5 +13,4 @@ public class GeocodeLatLngEvent {
         this.point = point;
     }
 
-
 }
