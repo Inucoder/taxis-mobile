@@ -7,7 +7,7 @@
 
 module.exports = {
   index: function (req, res) {
-    Driver.find({ limit: 100, sort: 'name DESC' }).exec(function(e,drivers){
+    Driver.find({ limit: 80, sort: 'name DESC' }).exec(function(e,drivers){
       res.view({
         drivers: drivers
       });

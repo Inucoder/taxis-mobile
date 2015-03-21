@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,16 +9,25 @@
     <include layout="@layout/toolbar" />
 
     <LinearLayout
-        android:layout_margin="10dip"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="10dip"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_destiny_address"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
-        </LinearLayout>
+        <SearchView
+            android:id="@+id/sv_destiny_location"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:paddingRight="60dip"
+            android:queryHint="Escribe tu destino" />
+
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="fill_parent"
@@ -27,16 +37,10 @@
             android:id="@+id/taxi_map"
             android:name="com.google.android.gms.maps.MapFragment"
             android:layout_width="match_parent"
-            android:tag="taxi_map"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:tag="taxi_map">
 
         </fragment>
-
-        <SearchView
-            android:id="@+id/sv_destiny_location"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingRight="60dip"/>
 
     </FrameLayout>
 

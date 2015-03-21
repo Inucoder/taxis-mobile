@@ -49,6 +49,7 @@
 		A737FF181ABD4CC600EA959B /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737FF171ABD4CC600EA959B /* SwiftyJSON.swift */; };
 		A737FF1F1ABD520100EA959B /* ZoneService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737FF1E1ABD520100EA959B /* ZoneService.swift */; };
 		A737FF211ABD5C9700EA959B /* ExtensionGMSMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737FF201ABD5C9700EA959B /* ExtensionGMSMapView.swift */; };
+		A737FF231ABD6A4700EA959B /* SCLAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A737FF221ABD6A4700EA959B /* SCLAlertView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		A737FF171ABD4CC600EA959B /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = SwiftyJSON/Source/SwiftyJSON.swift; sourceTree = "<group>"; };
 		A737FF1E1ABD520100EA959B /* ZoneService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoneService.swift; sourceTree = "<group>"; };
 		A737FF201ABD5C9700EA959B /* ExtensionGMSMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionGMSMapView.swift; sourceTree = "<group>"; };
+		A737FF221ABD6A4700EA959B /* SCLAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SCLAlertView.swift; path = "SCLAlertView-Swift/Classes/SCLAlertView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +227,7 @@
 		A737F9791ABCCB55003CFAB5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A737FF221ABD6A4700EA959B /* SCLAlertView.swift */,
 				A737FF171ABD4CC600EA959B /* SwiftyJSON.swift */,
 				A737FEF11ABD42D800EA959B /* ObjectMapper */,
 				A737F9941ABCCC46003CFAB5 /* SystemConfiguration.framework */,
@@ -358,6 +361,7 @@
 				TargetAttributes = {
 					A737F94A1ABCB1A6003CFAB5 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 8KUK48787R;
 					};
 					A737F9621ABCB1A6003CFAB5 = {
 						CreatedOnToolsVersion = 6.2;
@@ -421,6 +425,7 @@
 				A737F9541ABCB1A6003CFAB5 /* TaxiTaxiiOS.xcdatamodeld in Sources */,
 				A737FF0A1ABD42D800EA959B /* EnumTransform.swift in Sources */,
 				A737F9781ABCBEAA003CFAB5 /* ExtensionUIColor.swift in Sources */,
+				A737FF231ABD6A4700EA959B /* SCLAlertView.swift in Sources */,
 				A737FF091ABD42D800EA959B /* DateTransform.swift in Sources */,
 				A737FF031ABD42D800EA959B /* Mapper.swift in Sources */,
 				A737F99E1ABCE0CF003CFAB5 /* Config.swift in Sources */,
@@ -561,15 +566,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TaxiTaxiiOS/Frameworks",
 				);
 				INFOPLIST_FILE = TaxiTaxiiOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TaxiTaxiiOS/TaxiTaxiiOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -578,14 +588,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TaxiTaxiiOS/Frameworks",
 				);
 				INFOPLIST_FILE = TaxiTaxiiOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "TaxiTaxiiOS/TaxiTaxiiOS-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
