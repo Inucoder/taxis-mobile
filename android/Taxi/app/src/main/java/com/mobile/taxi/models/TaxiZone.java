@@ -2,7 +2,9 @@ package com.mobile.taxi.models;
 
 import android.graphics.Color;
 
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.gson.annotations.Expose;
 
@@ -22,7 +24,9 @@ public class TaxiZone {
     @Expose
     private List<Polygon> polygon = new ArrayList<Polygon>();
 
-    private transient PolygonOptions area;
+    private transient com.google.android.gms.maps.model.Polygon area;
+
+    private transient List<LatLng> points = new ArrayList<>();
 
     /**
      * @return The id
@@ -66,20 +70,30 @@ public class TaxiZone {
         this.polygon = polygon;
     }
 
-    public PolygonOptions getArea() {
+    public void inflateArea(GoogleMap map){
 
-        if(this.area == null){
-            this.area = new PolygonOptions();
+        PolygonOptions options = new PolygonOptions();
+        LatLng point;
 
-            for (Polygon raw : polygon) {
-                area.add(new LatLng(raw.getLat(), raw.getLng()));
-            }
-
-            area.strokeColor(Color.RED)
-                    .fillColor(Color.BLUE);
+        for (Polygon raw : polygon) {
+            point = new LatLng(raw.getLat(), raw.getLng());
+            points.add(point);
+            options.add(point);
         }
 
+        options.strokeColor(Color.RED)
+                .fillColor(Color.BLUE);
+
+        this.area = map.addPolygon(options);
+
+    }
+
+    public com.google.android.gms.maps.model.Polygon getArea() {
         return area;
+    }
+
+    public List<LatLng> getPoints() {
+        return points;
     }
 
     public class Polygon {

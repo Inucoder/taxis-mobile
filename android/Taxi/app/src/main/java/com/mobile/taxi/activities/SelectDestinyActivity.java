@@ -4,13 +4,15 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.maps.android.PolyUtil;
 import com.mobile.taxi.R;
 import com.mobile.taxi.events.GetZonesEvent;
 import com.mobile.taxi.events.GetZonesResultEvent;
@@ -28,6 +30,10 @@ public class SelectDestinyActivity extends ActionBarActivity {
     private Bus bus = BusInstance.getInstance();
     private GoogleMap map;
 
+    private List<TaxiZone> zones;
+
+    private TaxiZone selectedZone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +48,8 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
         map = ((MapFragment) getFragmentManager().findFragmentById(R.id.taxi_map)).getMap();
         assert (map != null);
+
+        configureMap();
 
         bus.post(new GetZonesEvent());
 
@@ -78,11 +86,42 @@ public class SelectDestinyActivity extends ActionBarActivity {
     @Subscribe
     public void onZonesReceived(GetZonesResultEvent event) {
 
-        List<TaxiZone> zones = event.zones;
+        this.zones = event.zones;
 
-        for(TaxiZone zone : zones){
-            map.addPolygon(zone.getArea());
+        for (TaxiZone zone : zones) {
+            zone.inflateArea(map);
         }
+
+    }
+
+    private void configureMap() {
+
+        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+                for (TaxiZone zone : zones) {
+                    if (PolyUtil.containsLocation(latLng, zone.getPoints(), true)) {
+
+                        if(selectedZone != null){
+                            selectedZone.getArea().setFillColor(Color.BLUE);
+                        }
+
+                        selectedZone = zone;
+                        zone.getArea().setFillColor(Color.GREEN);
+
+                        Toast.makeText(SelectDestinyActivity.this, "Zona " + zone.getName() + " tocada", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
+
+                if(selectedZone != null){
+                    selectedZone.getArea().setFillColor(Color.BLUE);
+                    selectedZone = null;
+                }
+
+            }
+        });
 
     }
 
