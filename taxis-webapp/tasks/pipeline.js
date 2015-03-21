@@ -28,6 +28,9 @@ var jsFilesToInject = [
 
   // Dependencies like jQuery, or Angular are brought in here
   'js/dependencies/**/*.js',
+  '/bower_components/angular/angular.min.js',
+  "/js/*.js",
+  '/js/controllers/*.js',
 
   // All of the rest of your client-side js files
   // will be injected here in no particular order.

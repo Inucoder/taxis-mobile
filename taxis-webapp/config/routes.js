@@ -35,6 +35,7 @@ module.exports.routes = {
   'GET /': 'IndexController.index',
   'GET /tarifas': 'RateController.index',
   'GET /conductores': 'DriverController.index',
+  'GET /conductores/:id': 'DriverController.show',
 
   /***************************************************************************
   *                                                                          *
