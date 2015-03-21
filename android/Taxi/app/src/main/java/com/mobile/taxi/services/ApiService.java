@@ -9,6 +9,8 @@ import com.mobile.taxi.events.GeocodeLatLngEvent;
 import com.mobile.taxi.events.GeocodeLatLngResultEvent;
 import com.mobile.taxi.events.GetSuggestionsEvent;
 import com.mobile.taxi.events.GetSuggestionsResultEvent;
+import com.mobile.taxi.events.GetZoneCostsEvent;
+import com.mobile.taxi.events.GetZoneCostsResultEvent;
 import com.mobile.taxi.events.GetZonesEvent;
 import com.mobile.taxi.events.GetZonesResultEvent;
 import com.mobile.taxi.events.PlaceDetailEvent;
@@ -58,7 +60,7 @@ public class ApiService {
     public void onGetZones(GetZonesEvent event) {
 
         //TODO: Regresar zonas consumidas del ws
-        String json = TaxiJsonReader.loadJSONFromAsset(context);
+        String json = TaxiJsonReader.loadJSONFromAsset(context, "zones.json");
 
         Gson gson = new Gson();
 
@@ -66,6 +68,19 @@ public class ApiService {
 
         List<TaxiZone> taxiZoneList = Arrays.asList(zones);
         bus.post(new GetZonesResultEvent(taxiZoneList));
+    }
+
+    @Subscribe
+    public void onGetCosts(GetZoneCostsEvent event){
+
+        String json = TaxiJsonReader.loadJSONFromAsset(context, "costs.json");
+
+        Gson gson = new Gson();
+
+        int[][] costs = gson.fromJson(json, int[][].class);
+
+        bus.post(new GetZoneCostsResultEvent(costs));
+
     }
 
     @Subscribe

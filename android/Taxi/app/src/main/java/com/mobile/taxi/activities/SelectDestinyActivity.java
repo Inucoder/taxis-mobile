@@ -26,6 +26,8 @@ import com.mobile.taxi.events.GeocodeLatLngEvent;
 import com.mobile.taxi.events.GeocodeLatLngResultEvent;
 import com.mobile.taxi.events.GetSuggestionsEvent;
 import com.mobile.taxi.events.GetSuggestionsResultEvent;
+import com.mobile.taxi.events.GetZoneCostsEvent;
+import com.mobile.taxi.events.GetZoneCostsResultEvent;
 import com.mobile.taxi.events.GetZonesEvent;
 import com.mobile.taxi.events.GetZonesResultEvent;
 import com.mobile.taxi.events.PlaceDetailEvent;
@@ -40,6 +42,7 @@ import com.mobile.taxi.utils.PredictionsCursorFactory;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class SelectDestinyActivity extends ActionBarActivity {
@@ -56,6 +59,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
     private TaxiZone selectedZone;
     private TextView destinyAddress;
     private SimpleCursorAdapter suggestionAdapter;
+    private int[][] costs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +89,10 @@ public class SelectDestinyActivity extends ActionBarActivity {
         suggestionAdapter = new PlacesSuggestionAdapter(this, android.R.layout.simple_list_item_1, null, FROM_PLACES, null, -100);
         destinyLocationSearch.setSuggestionsAdapter(suggestionAdapter);
 
+
+        //Request Zones and Costs
         bus.post(new GetZonesEvent());
+        bus.post(new GetZoneCostsEvent());
 
     }
 
@@ -155,6 +162,11 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
     }
 
+    @Subscribe
+    public void onCostsEvent(GetZoneCostsResultEvent event){
+        costs = event.costs;
+        Log.i(TAG, Arrays.toString(costs));
+    }
 
     @Subscribe
     public void onSuggestionsReceived(GetSuggestionsResultEvent event) {

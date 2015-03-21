@@ -10,13 +10,13 @@ import java.io.InputStream;
  */
 public class TaxiJsonReader {
 
-    public static String loadJSONFromAsset(Context context) {
+    public static String loadJSONFromAsset(Context context, String filename) {
 
         String json = null;
 
         try {
 
-            InputStream is = context.getAssets().open("zones.json");
+            InputStream is = context.getAssets().open(filename);
 
             int size = is.available();
 
