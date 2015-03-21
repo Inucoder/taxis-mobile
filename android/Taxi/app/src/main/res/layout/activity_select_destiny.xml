@@ -8,28 +8,14 @@
 
     <include layout="@layout/toolbar" />
 
-    <LinearLayout
+    <SearchView
+        android:id="@+id/sv_destiny_location"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dip"
-        android:orientation="vertical">
+        android:iconifiedByDefault="false"
+        android:queryHint="Escribe tu destino" />
 
-        <TextView
-            android:id="@+id/tv_destiny_address"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-
-        <SearchView
-            android:id="@+id/sv_destiny_location"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
-            android:paddingRight="60dip"
-            android:queryHint="Escribe tu destino" />
-
-    </LinearLayout>
-
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
@@ -38,10 +24,22 @@
             android:name="com.google.android.gms.maps.MapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:tag="taxi_map">
+            android:tag="taxi_map"
+            android:layout_above="@+id/btn_calculate_cost">
 
         </fragment>
 
-    </FrameLayout>
+        <Button
+            android:id="@+id/btn_calculate_cost"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Calcular Costo"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
 
 </LinearLayout>

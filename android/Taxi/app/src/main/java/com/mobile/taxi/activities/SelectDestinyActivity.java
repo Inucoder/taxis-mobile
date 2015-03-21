@@ -1,12 +1,15 @@
 package com.mobile.taxi.activities;
 
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -44,6 +47,8 @@ import com.squareup.otto.Subscribe;
 import java.util.Arrays;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class SelectDestinyActivity extends ActionBarActivity {
 
     private static final String TAG = SelectDestinyActivity.class.getName();
@@ -59,10 +64,10 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
     private TaxiZone sourceZone;
     private TaxiZone destinationZone;
-    private TextView destinyAddress;
     private SimpleCursorAdapter suggestionAdapter;
     private int[][] costs;
     private DragListener mapListener;
+    private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +86,6 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
         configureMap();
 
-        destinyAddress = (TextView) findViewById(R.id.tv_destiny_address);
-
         LocalitySearchListener searchListener = new LocalitySearchListener();
 
         SearchView destinyLocationSearch = (SearchView) findViewById(R.id.sv_destiny_location);
@@ -93,32 +96,19 @@ public class SelectDestinyActivity extends ActionBarActivity {
         destinyLocationSearch.setSuggestionsAdapter(suggestionAdapter);
 
 
+        button = (Button) findViewById(R.id.btn_calculate_cost);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayCosts();
+            }
+        });
+
         //Request Zones and Costs
         bus.post(new GetZonesEvent());
         bus.post(new GetZoneCostsEvent());
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_select_destiny, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -166,8 +156,6 @@ public class SelectDestinyActivity extends ActionBarActivity {
         }
 
         Result first = geocodeResponse.getResults().get(0);
-
-        destinyAddress.setText(first.getFormatedAddress());
 
     }
 
@@ -263,7 +251,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
                 }
             }
 
-            displayCosts();
+            changeButtonState();
 
         }
 
@@ -341,8 +329,12 @@ public class SelectDestinyActivity extends ActionBarActivity {
             }
         }
 
-        displayCosts();
+        changeButtonState();
 
+    }
+
+    private void changeButtonState(){
+        button.setEnabled(sourceZone != null && destinationZone != null);
     }
 
     private void displayCosts() {
@@ -350,8 +342,15 @@ public class SelectDestinyActivity extends ActionBarActivity {
         if (sourceZone == null || destinationZone == null)
             return;
 
-        int cost = costs[sourceZone.getId()][destinationZone.getId()];
-        Log.i(TAG, "Costo: " + cost);
+        int price = costs[sourceZone.getId()][destinationZone.getId()];
+
+        SweetAlertDialog dialog = new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE);
+        dialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        dialog.setTitleText("Tarifa");
+        dialog.setContentText("Origen: " + sourceZone.getName() + "\n");
+        dialog.setContentText("Destino: " + destinationZone.getName() + "\n");
+        dialog.setContentText("Costo: $" + price);
+        dialog.show();
 
     }
 
