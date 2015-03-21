@@ -1,7 +1,8 @@
 <script type='text/javascript'>
-  window.drivers = <%- JSON.stringify(drivers) %>;
+  window.driver = <%- JSON.stringify(driver) %>;
+  window.driver = driver[0];
 </script>
-<div ng-controller="driverCTL">
+<div ng-controller="showDriverCTL">
   <div class="subheader shift-with-hiw">
     <div class="header--sm show-sm pull-left">
       <a href="#" data-prevent-default="" class="link-reset burger--sm">
@@ -48,9 +49,21 @@
         </form>
       </div>
     </div><br/>
-    <h5>Conductores</h5>
+    <h5>Conductor <b>{{ driver.name }} {{ driver.lastname }} {{ driver.surname }}</b></h5>
     <div class="col-md-12">
-      <div class="col-md-3" ng-repeat="driver in drivers"><a href="/conductores/{{ driver.id }}" class="driver">{{ driver.name }}</a></div>
+      <div class="col-md-6">
+        <img src="http://blog.edmond.cl/wp-content/uploads/2012/09/taxista.jpg" ng-if="driver.id < 100" class="driver" />
+        <img src="http://www.andes.info.ec/sites/default/files/styles/large/public/field/image/taxistas%20seleccion.jpg?itok=qn7ukUn0" ng-if="driver.id > 100 && driver.id < 600"  class="driver" />
+        <img src="http://www.eluniversal.com.co/sites/default/files/taxista_3.jpg" ng-if="driver.id > 600"  class="driver" />
+      </div>
+      <div class="col-md-6">
+        <p>Placas: {{ driver.plates }}</p>
+        <p>Model: {{ driver.model }}</p>
+        <p>Marca: {{ driver.brand }}</p>
+        <p>Año: {{ driver.year }}</p>
+        <p ng-if="driver.id < 300" class="certified">CERTIFICADO</p>
+        <p ng-if="driver.id > 300" class="pirate">PIRATA</p>
+      </div>
     </div>
   </div>
 </div>

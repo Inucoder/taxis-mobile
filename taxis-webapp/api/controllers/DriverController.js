@@ -12,6 +12,13 @@ module.exports = {
         drivers: drivers
       });
     });
+  },
+  show: function (req, res) {
+    Driver.find({ id: req.params.id }).exec(function(e,driver){
+      res.view({
+        driver: driver
+      });
+    });
   }
 };
 
