@@ -61,6 +61,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
     private TextView destinyAddress;
     private SimpleCursorAdapter suggestionAdapter;
     private int[][] costs;
+    private DragListener mapListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +141,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
         map.setMyLocationEnabled(true);
 
-        DragListener mapListener = new DragListener();
+        mapListener = new DragListener();
 
         map.setOnMapClickListener(mapListener);
         map.setOnMarkerDragListener(mapListener);
@@ -197,6 +198,9 @@ public class SelectDestinyActivity extends ActionBarActivity {
         map.moveCamera(CameraUpdateFactory.newLatLng(point));
         map.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
 
+        mapListener.getMarker().setPosition(point);
+        checkZones(mapListener.marker);
+
     }
 
     class DragListener implements GoogleMap.OnMapClickListener, GoogleMap.OnMarkerDragListener, GoogleMap.OnMyLocationChangeListener {
@@ -206,13 +210,9 @@ public class SelectDestinyActivity extends ActionBarActivity {
         @Override
         public void onMapClick(LatLng latLng) {
 
-            if (marker == null) {
-                marker = map.addMarker(new MarkerOptions().position(latLng).draggable(true));
-            } else {
-                marker.setPosition(latLng);
-                marker.setDraggable(true);
-            }
+            Marker currentMarker = getMarker();
 
+            currentMarker.setPosition(latLng);
             checkZones(marker);
             geocodePosition();
 
@@ -268,6 +268,11 @@ public class SelectDestinyActivity extends ActionBarActivity {
         }
 
         public Marker getMarker() {
+
+            if (this.marker == null) {
+                marker = map.addMarker(new MarkerOptions().draggable(true));
+            }
+
             return marker;
         }
 
