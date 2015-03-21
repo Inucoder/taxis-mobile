@@ -16,7 +16,7 @@ public class TaxiApplication extends Application {
         super.onCreate();
 
         Bus bus = BusInstance.getInstance();
-        ApiService apiService = new ApiService(bus);
+        ApiService apiService = new ApiService(bus, this);
         bus.register(apiService);
 
     }
