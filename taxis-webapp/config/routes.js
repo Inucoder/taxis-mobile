@@ -32,9 +32,9 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'homepage'
-  }
+  'GET /': 'IndexController.index',
+  'GET /tarifas': 'RateController.index',
+  'GET /conductores': 'DriverController.index',
 
   /***************************************************************************
   *                                                                          *
