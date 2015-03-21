@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,11 +19,15 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.PolyUtil;
 import com.mobile.taxi.R;
+import com.mobile.taxi.adapters.PlacesSuggestionAdapter;
 import com.mobile.taxi.events.GeocodeLatLngEvent;
 import com.mobile.taxi.events.GeocodeLatLngResultEvent;
+import com.mobile.taxi.events.GetSuggestionsEvent;
+import com.mobile.taxi.events.GetSuggestionsResultEvent;
 import com.mobile.taxi.events.GetZonesEvent;
 import com.mobile.taxi.events.GetZonesResultEvent;
 import com.mobile.taxi.models.GeocodingResponse;
+import com.mobile.taxi.models.Prediction;
 import com.mobile.taxi.models.Result;
 import com.mobile.taxi.models.TaxiZone;
 import com.mobile.taxi.services.BusInstance;
@@ -35,6 +40,8 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
     private static final String TAG = SelectDestinyActivity.class.getName();
 
+    private static final String[] FROM_PLACES = new String[]{"_id", "place_id", "description"};
+
     private Bus bus = BusInstance.getInstance();
     private GoogleMap map;
 
@@ -42,6 +49,7 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
     private TaxiZone selectedZone;
     private TextView destinyAddress;
+    private SimpleCursorAdapter suggestionAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +70,14 @@ public class SelectDestinyActivity extends ActionBarActivity {
 
         destinyAddress = (TextView) findViewById(R.id.tv_destiny_address);
 
+        LocalitySearchListener searchListener = new LocalitySearchListener();
+
         SearchView destinyLocationSearch = (SearchView) findViewById(R.id.sv_destiny_location);
+        destinyLocationSearch.setOnSuggestionListener(searchListener);
+        destinyLocationSearch.setOnQueryTextListener(searchListener);
+
+        suggestionAdapter = new PlacesSuggestionAdapter(this, android.R.layout.simple_list_item_1, null, FROM_PLACES, null, -100);
+        destinyLocationSearch.setSuggestionsAdapter(suggestionAdapter);
 
         bus.post(new GetZonesEvent());
 
@@ -196,6 +211,49 @@ public class SelectDestinyActivity extends ActionBarActivity {
         private void geocodePosition() {
             LatLng point = marker.getPosition();
             bus.post(new GeocodeLatLngEvent(point));
+        }
+
+    }
+
+    @Subscribe
+    public void onSuggestionsReceived(GetSuggestionsResultEvent event){
+
+        List<Prediction> predictions = event.response.getPredictions();
+
+        for(Prediction prediction : predictions){
+            Log.i(TAG, prediction.getDescription());
+        }
+
+    }
+
+    class LocalitySearchListener implements SearchView.OnQueryTextListener, SearchView.OnSuggestionListener{
+
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            if(query.length() > 3){
+                bus.post(new GetSuggestionsEvent(query));
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String query) {
+            if(query.length() > 3){
+                bus.post(new GetSuggestionsEvent(query));
+                return true;
+            }
+            return false;
+        }
+
+        @Override
+        public boolean onSuggestionSelect(int i) {
+            return false;
+        }
+
+        @Override
+        public boolean onSuggestionClick(int i) {
+            return false;
         }
 
     }

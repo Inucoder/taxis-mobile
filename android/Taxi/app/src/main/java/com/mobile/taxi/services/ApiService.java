@@ -7,8 +7,11 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.mobile.taxi.events.GeocodeLatLngEvent;
 import com.mobile.taxi.events.GeocodeLatLngResultEvent;
+import com.mobile.taxi.events.GetSuggestionsEvent;
+import com.mobile.taxi.events.GetSuggestionsResultEvent;
 import com.mobile.taxi.events.GetZonesEvent;
 import com.mobile.taxi.events.GetZonesResultEvent;
+import com.mobile.taxi.models.AutocompleteResponse;
 import com.mobile.taxi.models.GeocodingResponse;
 import com.mobile.taxi.models.TaxiZone;
 import com.mobile.taxi.utils.TaxiJsonReader;
@@ -31,6 +34,9 @@ public class ApiService {
 
     private static final String DEFAULT_COUNTRY_COMPONENT = "country:MX";
     private static final String DEFAULT_COMPONENTS = DEFAULT_COUNTRY_COMPONENT + "|locality:" + Uri.encode("Cancún");
+    private static final String DEFAULT_TYPES = "(cities)";
+    private static final String DEFAULT_LANGUAGE = "es";
+    private static final String GOOGLE_API_KEY = "AIzaSyBHJAB-jGgbOZn024MYdfvMUtO2AQ9SIdA";
 
     private Bus bus;
     private Context context;
@@ -62,10 +68,32 @@ public class ApiService {
 
         String latLng = event.point.latitude + "," + event.point.longitude;
 
-        googleApi.geocodeLatLng(latLng, DEFAULT_COUNTRY_COMPONENT, new Callback<GeocodingResponse>() {
+        googleApi.geocodeLatLng(latLng, new Callback<GeocodingResponse>() {
+
             @Override
             public void success(GeocodingResponse geocodingResponse, Response response) {
                 bus.post(new GeocodeLatLngResultEvent(geocodingResponse));
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                error.getResponse().getReason();
+                Log.e(TAG, error.getMessage());
+            }
+
+        });
+
+    }
+
+    @Subscribe
+    public void onGetSuggestion(GetSuggestionsEvent event){
+
+        String query = event.query;
+
+        googleApi.getPredictions(GOOGLE_API_KEY, DEFAULT_COUNTRY_COMPONENT, query, DEFAULT_TYPES, DEFAULT_LANGUAGE, new Callback<AutocompleteResponse>() {
+            @Override
+            public void success(AutocompleteResponse autocompleteResponse, Response response) {
+                bus.post(new GetSuggestionsResultEvent(autocompleteResponse));
             }
 
             @Override
