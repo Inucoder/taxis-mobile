@@ -17,4 +17,5 @@ extension UIColor {
         let blue = CGFloat(blue)/CCLV
         self.init(red: red, green: green, blue: blue, alpha: 1.0)
     }
+    
 }

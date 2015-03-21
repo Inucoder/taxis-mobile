@@ -14,22 +14,32 @@ class DashViewController: UIViewController {
     
     @IBOutlet weak var mapDashView: GMSMapView!
     
+    var zonesGMS: [Zone]! = []
+
+    var zoneSelected: Zone?
+    
+    var pointMarkerTarget: PointMarker?
+    
     let locationManager=CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         self.navigationController?.navigationBar.barTintColor = UIColor(red:38,green:194,blue:129)
         
         self.locationManager.delegate = self
         self.mapDashView.delegate = self
-        
         self.locationManager.requestWhenInUseAuthorization()
+        for zone in ZoneService.instance.getZones(){
+            zonesGMS.append(self.mapDashView.displayZone(zone));
+        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+
 }
 
 extension DashViewController: CLLocationManagerDelegate {
@@ -44,7 +54,7 @@ extension DashViewController: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         if let location = locations.first as? CLLocation {
-            mapDashView.camera = GMSCameraPosition(target: location.coordinate, zoom: 20, bearing: 0, viewingAngle: 0)
+            mapDashView.camera = GMSCameraPosition(target: location.coordinate, zoom: 12, bearing: 0, viewingAngle: 0)
             locationManager.stopUpdatingLocation()
         }
     }
@@ -54,8 +64,18 @@ extension DashViewController: CLLocationManagerDelegate {
 extension DashViewController: GMSMapViewDelegate{
     
     func mapView( mapView: GMSMapView!, didTapAtCoordinate coordinate: CLLocationCoordinate2D) -> Void {
-        let marker = PointMarker(locationCoordinate:  coordinate)
-        marker.map = self.mapDashView
+        if pointMarkerTarget != nil{
+            pointMarkerTarget?.map = nil
+        }
+        if zoneSelected != nil {
+            zoneSelected?.mapPolygon.fillColor = UIColor(red:0.39, green:0.90, blue:0.75, alpha: 0.1);
+        }
+        pointMarkerTarget = PointMarker(locationCoordinate:  coordinate)
+        pointMarkerTarget?.map = self.mapDashView
+        zoneSelected = mapDashView.getZoneFor(coordinate,zonesGMS: zonesGMS)
+        if zoneSelected != nil {
+            zoneSelected?.mapPolygon.fillColor = UIColor(red:0.39, green:0.90, blue:0.75, alpha: 0.5);
+        }
     }
     
     func mapView(mapView: GMSMapView!, idleAtCameraPosition position: GMSCameraPosition!) {
